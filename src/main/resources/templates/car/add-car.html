@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Auto registratie</title>
+    <link rel="stylesheet" th:href="@{/CSS/Template.css}">
+    <script th:src="@{/JS/main.js}"></script>
+
+</head>
+<body>
+<div th:replace="fragments/header :: header">
+</div>
+<h1>Voeg auto toe</h1>
+<form th:object="${car}" th:action="@{/add-car}" method="POST">
+    <p th:if="${#fields.hasErrors('licencePlate')}" th:text="${#strings.listJoin(#fields.errors('licencePlate'), ', ')}"></p>
+    <label for="f1">Kenteken plaat:</label><br>
+    <input type="text" id="f1" name="f1" th:field="*{licencePlate}"><br>
+
+    <p th:if="${#fields.hasErrors('brand')}" th:text="${#strings.listJoin(#fields.errors('brand'), ', ')}"></p>
+    <label for="f2">Automerk:</label><br>
+    <input type="text" id="f2" name="f2" th:field="*{brand}"><br>
+
+    <br><br>
+    <button type="submit">Voeg toe</button>
+</form>
+</body>
+</html>

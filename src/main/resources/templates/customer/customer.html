@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/CSS/Template.css}">
+    <script th:src="@{/JS/main.js}"></script>
+
+</head>
+<body>
+<div th:replace="fragments/header :: header">
+</div>
+<h1>Klanten</h1>
+<table>
+    <tr>
+        <th>1</th>
+        <th>2</th>
+    </tr>
+    <tr th:each="customer: ${customers}">
+        <td th:text="${customer.firstName}" />
+        <td th:text="*{customer.lastName}" />
+    </tr>
+</table>
+</body>
+</html>
