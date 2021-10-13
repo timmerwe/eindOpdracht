@@ -13,12 +13,16 @@
 <h1>Klanten</h1>
 <table>
     <tr>
-        <th>1</th>
-        <th>2</th>
+        <th>Voornaam</th>
+        <th>Achternaam</th>
+        <th>Acties</th>
     </tr>
     <tr th:each="customer: ${customers}">
         <td th:text="${customer.firstName}" />
         <td th:text="*{customer.lastName}" />
+        <td>
+            <a th:href="@{'/customer/edit/' + ${customer.id}}">Bewerk</a>
+        </td>
     </tr>
 </table>
 </body>

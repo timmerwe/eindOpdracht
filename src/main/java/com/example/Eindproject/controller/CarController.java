@@ -16,14 +16,18 @@ import javax.validation.Valid;
 @Controller
 public class CarController {
     private final CarService service;
+    private final CustomerService customerService;
 
-    public CarController(CarService service){
+    public CarController(CarService service, CustomerService customerService){
+
         this.service = service;
+        this.customerService = customerService;
     }
 
     @GetMapping("/add-car")
     public String addCar(Model model){
         model.addAttribute("car", new CarDto());
+        model.addAttribute("customers", customerService.getAll());
 
         return "car/add-car";
     }

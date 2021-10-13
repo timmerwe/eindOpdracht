@@ -3,10 +3,8 @@ package com.example.Eindproject.entity;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Required;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
@@ -23,4 +21,8 @@ public class Car {
 
     @NonNull
     String brand;
+
+    @ManyToOne()
+    @JoinColumn(name="customer_id")
+    private Customer customer;
 }

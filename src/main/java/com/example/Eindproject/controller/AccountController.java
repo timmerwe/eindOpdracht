@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
@@ -34,7 +35,7 @@ public class AccountController {
         }
 
         service.createCustomer(customerDto);
-        return "customer/add-customer";
+        return "redirect:/customers";
     }
 
     @GetMapping("/customers")
@@ -42,5 +43,23 @@ public class AccountController {
         model.addAttribute("customers", service.getAll());
 
         return "customer/customer";
+    }
+
+    @GetMapping("/customer/edit/{id}")
+    public String editCustomer(Model model, @PathVariable("id") Long customerId){
+        model.addAttribute("customer", service.getCustomer(customerId));
+
+        return "customer/edit-customer";
+    }
+
+    @PostMapping("/customer/edit/{id}")
+    public String editCustomer(@Valid @ModelAttribute("customer") CustomerDto customerDto, BindingResult bindingResult, @PathVariable("id") Long customerId){
+
+        if(bindingResult.hasErrors()) {
+            return "customer/edit-customer";
+        }
+
+        service.editCustomer(customerId, customerDto);
+        return "redirect:/customers";
     }
 }

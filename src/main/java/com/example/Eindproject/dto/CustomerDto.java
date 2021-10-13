@@ -1,8 +1,19 @@
 package com.example.Eindproject.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.validation.constraints.*;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CustomerDto {
+
+    Long id;
 
     @NotBlank(message = "Voornaam mag niet leeg zijn.")
     private String firstName;
@@ -24,64 +35,4 @@ public class CustomerDto {
     @NotBlank(message = "Plaats naam mag niet leeg zijn")
     private String city;
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public CustomerDto(String firstName, String lastName, String email, String postalCode, String address, String city) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.postalCode = postalCode;
-        this.address = address;
-        this.city = city;
-    }
-
-    public CustomerDto() {
-
-    }
 }

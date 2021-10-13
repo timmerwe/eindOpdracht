@@ -8,6 +8,7 @@ import com.example.Eindproject.mapping.CustomerMapper;
 import com.example.Eindproject.repos.CustomerRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,16 +29,24 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDto getCustomer(long id) {
-        return null;
+        Customer c = repos.getById(id);
+        return CustomerMapper.fromEntityToDto(c);
+
     }
 
     @Override
-    public List<CustomerDto> getAll() {
-        List<CustomerDto> allCustomerDto = null;
+    public ArrayList<CustomerDto> getAll() {
+        ArrayList<CustomerDto> allCustomerDto = new ArrayList<>();
         List<Customer> allCustomers = repos.findAll();
         for (Customer customer : allCustomers) {
-            allCustomerDto.add(CustomerMapper.fromEntityToDto(customer));
+            CustomerDto dto = CustomerMapper.fromEntityToDto((customer));
+            allCustomerDto.add(dto);
         }
         return allCustomerDto;
+    }
+
+    @Override
+    public void editCustomer(long id, CustomerDto c) {
+//        repos.updateCustomer(id, c.getFirstName(), c.getLastName(), c.getEmail(), c.getPostalCode(), c.getAddress(), c.getCity());
     }
 }

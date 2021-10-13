@@ -1,11 +1,12 @@
 package com.example.Eindproject.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Table(name="CUSTOMER")
 public class Customer {
 
     @Id
@@ -24,6 +25,9 @@ public class Customer {
     private String address;
 
     private String city;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Car> cars;
 
     public Customer(String firstName, String lastName, String email, String postalCode, String address, String city) {
         this.firstName = firstName;

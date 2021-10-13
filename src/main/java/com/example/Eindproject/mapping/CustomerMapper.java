@@ -10,6 +10,6 @@ public class CustomerMapper {
     }
 
     public static CustomerDto fromEntityToDto (Customer c) {
-        return new CustomerDto(c.getFirstName(), c.getLastName(), c.getEmail(), c.getPostalCode(), c.getAddress(), c.getCity());
+        return new CustomerDto(c.getId(), c.getFirstName(), c.getLastName(), c.getEmail(), c.getPostalCode(), c.getAddress(), c.getCity());
     }
 }

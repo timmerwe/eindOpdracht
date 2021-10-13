@@ -1,5 +1,6 @@
 package com.example.Eindproject.dto;
 
+import com.example.Eindproject.entity.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,4 +21,6 @@ public class CarDto {
 
     @NotEmpty(message = "Voer een merknaam in.")
     String brand;
+
+    Long customerId;
 }
