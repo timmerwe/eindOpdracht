@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Cars</title>
     <link rel="stylesheet" th:href="@{/CSS/Template.css}">
     <script th:src="@{/JS/main.js}"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -11,18 +11,20 @@
 <body>
 <div th:replace="fragments/header :: header">
 </div>
-<h1>Klanten</h1>
-<table>
+<h1>Auto's</h1>
+<table class="table">
     <tr>
-        <th>Voornaam</th>
-        <th>Achternaam</th>
-        <th>Acties</th>
+        <th scope="col">Kenteken</th>
+        <th scope="col">Merk</th>
+        <th scope="col">Klant</th>
+        <th scope="col">Acties</th>
     </tr>
-    <tr th:each="customer: ${customers}">
-        <td th:text="${customer.firstName}" />
-        <td th:text="*{customer.lastName}" />
+    <tr th:each="car: ${cars}">
+        <td th:text="${car.licencePlate}" />
+        <td th:text="*{car.brand}" />
+        <td th:text="*{car.customerName}" />
         <td>
-            <a th:href="@{'/customer/edit/' + ${customer.id}}">Bewerk</a>
+            <a th:href="@{'/car/add-inspection/' + ${car.id}}">Maak keuring aan</a>
         </td>
     </tr>
 </table>

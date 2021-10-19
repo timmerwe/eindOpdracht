@@ -1,13 +1,11 @@
 package com.example.Eindproject.dto;
 
 import com.example.Eindproject.entity.Customer;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -23,4 +21,6 @@ public class CarDto {
     String brand;
 
     Long customerId;
+
+    String customerName;
 }

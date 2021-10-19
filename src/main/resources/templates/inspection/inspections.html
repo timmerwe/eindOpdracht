@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Inspections</title>
     <link rel="stylesheet" th:href="@{/CSS/Template.css}">
     <script th:src="@{/JS/main.js}"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -11,18 +11,20 @@
 <body>
 <div th:replace="fragments/header :: header">
 </div>
-<h1>Klanten</h1>
-<table>
+<h1>Inspecties</h1>
+<table class="table">
     <tr>
-        <th>Voornaam</th>
-        <th>Achternaam</th>
-        <th>Acties</th>
+        <th scope="col">Kenteken</th>
+        <th scope="col">Datum</th>
+        <th scope="col">Status</th>
+        <th scope="col">Acties</th>
     </tr>
-    <tr th:each="customer: ${customers}">
-        <td th:text="${customer.firstName}" />
-        <td th:text="*{customer.lastName}" />
+    <tr th:each="i: ${inspections}">
+        <td th:text="*{i.licencePlate}" />
+        <td th:text="*{i.plannedDate}" />
+        <td th:text="*{i.status}" />
         <td>
-            <a th:href="@{'/customer/edit/' + ${customer.id}}">Bewerk</a>
+            <a th:href="@{'/inspection/edit-inspection/' + *{i.id}}">Bewerk keuring</a>
         </td>
     </tr>
 </table>

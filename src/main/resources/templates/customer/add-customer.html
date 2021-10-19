@@ -5,6 +5,7 @@
     <title>Klant registratie</title>
     <link rel="stylesheet" th:href="@{/CSS/Template.css}">
     <script th:src="@{/JS/main.js}"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 </head>
 <body>
@@ -12,31 +13,47 @@
 </div>
 <h1>Registreer klant:</h1>
     <form th:object="${customer}" th:action="@{/add-customer}" method="POST">
-        <p th:if="${#fields.hasErrors('firstName')}" th:text="${#strings.listJoin(#fields.errors('firstName'), ', ')}"></p>
-        <label for="f1">Voornaam:</label><br>
-        <input type="text" id="f1" name="f1" th:field="*{firstName}"><br>
+        <div class="form-group">
+            <p th:if="${#fields.hasErrors('firstName')}" th:text="${#strings.listJoin(#fields.errors('firstName'), ', ')}"></p>
+            <label for="f1">Voornaam:</label><br>
+            <input class="form-control" type="text" id="f1" name="f1" th:field="*{firstName}"><br>
+        </div>
 
-        <p th:if="${#fields.hasErrors('lastName')}" th:text="${#strings.listJoin(#fields.errors('lastName'), ', ')}"></p>
-        <label for="f2">Achternaam:</label><br>
-        <input type="text" id="f2" name="f2" th:field="*{lastName}"><br>
+        <div class="form-group">
+            <p th:if="${#fields.hasErrors('lastName')}" th:text="${#strings.listJoin(#fields.errors('lastName'), ', ')}"></p>
+            <label for="f2">Achternaam:</label><br>
+            <input class="form-control" type="text" id="f2" name="f2" th:field="*{lastName}"><br>
+        </div>
 
-        <p th:if="${#fields.hasErrors('email')}" th:text="${#strings.listJoin(#fields.errors('email'), ', ')}"></p>
-        <label for="f3">Email:</label><br>
-        <input type="text" id="f3" name="f3" th:field="*{email}"><br>
+        <div class="form-group">
+            <p th:if="${#fields.hasErrors('email')}" th:text="${#strings.listJoin(#fields.errors('email'), ', ')}"></p>
+            <label for="f3">Email:</label><br>
+            <input class="form-control" type="text" id="f3" name="f3" th:field="*{email}"><br>
+        </div>
 
-        <p th:if="${#fields.hasErrors('postalCode')}" th:text="${#strings.listJoin(#fields.errors('postalCode'), ', ')}"></p>
-        <label for="f4">Postcode:</label><br>
-        <input type="text" id="f4" name="f4" th:field="*{postalCode}"><br>
+        <div class="form-group">
+            <p th:if="${#fields.hasErrors('postalCode')}" th:text="${#strings.listJoin(#fields.errors('postalCode'), ', ')}"></p>
+            <label for="f4">Postcode:</label><br>
+            <input class="form-control" type="text" id="f4" name="f4" th:field="*{postalCode}"><br>
+        </div>
 
-        <p th:if="${#fields.hasErrors('address')}" th:text="${#strings.listJoin(#fields.errors('address'), ', ')}"></p>
-        <label for="f5">Adres:</label><br>
-        <input type="text" id="f5" name="f5" th:field="*{address}"><br>
+        <div class="form-group">
+            <p th:if="${#fields.hasErrors('address')}" th:text="${#strings.listJoin(#fields.errors('address'), ', ')}"></p>
+            <label for="f5">Adres:</label><br>
+            <input class="form-control" type="text" id="f5" name="f5" th:field="*{address}"><br>
+        </div>
 
-        <p th:if="${#fields.hasErrors('city')}" th:text="${#strings.listJoin(#fields.errors('city'), ', ')}"></p>
-        <label for="f6">Plaats:</label><br>
-        <input type="text" id="f6" name="f6" th:field="*{city}"><br>
+        <div class="form-group">
+            <p th:if="${#fields.hasErrors('city')}" th:text="${#strings.listJoin(#fields.errors('city'), ', ')}"></p>
+            <label for="f6">Plaats:</label><br>
+            <input class="form-control" type="text" id="f6" name="f6" th:field="*{city}"><br>
+        </div>
         <br><br>
-        <button type="submit">Voeg toe</button>
+        <button class="btn btn-primary" type="submit">Voeg toe</button>
     </form>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
