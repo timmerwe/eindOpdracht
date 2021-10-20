@@ -27,4 +27,7 @@ public class Car {
 
     @OneToMany(mappedBy = "car")
     private List<Inspection> inspections;
+
+    @OneToMany(mappedBy = "car")
+    private List<Repair> repairs;
 }

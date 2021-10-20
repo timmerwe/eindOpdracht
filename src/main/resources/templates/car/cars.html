@@ -25,6 +25,8 @@
         <td th:text="*{car.customerName}" />
         <td>
             <a th:href="@{'/car/add-inspection/' + ${car.id}}">Maak keuring aan</a>
+            <br>
+            <a th:href="@{'/repair/add-repair/' + ${car.id}}">Maak reparatie aan</a>
         </td>
     </tr>
 </table>

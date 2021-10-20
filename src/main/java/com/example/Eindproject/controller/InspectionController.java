@@ -52,7 +52,7 @@ public class InspectionController {
     }
 
     @GetMapping("/inspections")
-    public String showAllCustomers(Model model) throws ParseException {
+    public String showAllInspections(Model model) throws ParseException {
         model.addAttribute("inspections", service.getAllInspections());
 
         return "inspection/inspections";

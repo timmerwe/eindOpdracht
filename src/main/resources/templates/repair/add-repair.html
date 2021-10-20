@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add repair</title>
+    <link rel="stylesheet" th:href="@{/CSS/Template.css}">
+    <script th:src="@{/JS/main.js}"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<div th:replace="fragments/header :: header">
+</div>
+<h1 th:text="'Reparatie inplannen voor kenteken:' + ${car.licencePlate}"></h1>
+<form th:object="${repair}" th:action="@{'/repair/add-repair/' + ${car.id}}" method="POST">
+    <div class="form-group">
+        <p th:if="${#fields.hasErrors('plannedDate')}" th:text="${#strings.listJoin(#fields.errors('plannedDate'), ', ')}"></p>
+        <label for="plannedDate">Datum:</label><br>
+        <input th:field="*{plannedDate}" type="date" id="plannedDate" name="plannedDate">
+    </div>
+
+    <div class="form-group">
+        <p th:if="${#fields.hasErrors('arrangements')}" th:text="${#strings.listJoin(#fields.errors('arrangements'), ', ')}"></p>
+        <label for="arrangements">Afspraken:</label><br>
+        <input th:field="*{arrangements}" type="text" id="arrangements" name="arrangements">
+    </div>
+
+    <label for="inspection">Voorafgaande inspectie:</label><br>
+    <select id="inspection" th:field="*{inspectionId}">
+        <option value="">Niet van toepassing</option>
+        <option th:each="i : ${inspection}" th:value="${i.id}" th:text="${i.plannedDate}"></option>
+    </select>
+
+    <br><br>
+    <button class="btn btn-primary" type="submit">Voeg toe</button>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script>
+    $('.input-group.date').datepicker({
+        autoclose: true,
+        todayHighlight: true
+    });
+</script>
+
+</body>
+
+</html>

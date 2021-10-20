@@ -21,8 +21,8 @@
     <label for="f2">Automerk:</label><br>
     <input type="text" id="f2" name="f2" th:field="*{brand}"><br>
 
-    <label for="f2">Klant:</label><br>
-    <select th:field="*{customerId}">
+    <label for="f3">Klant:</label><br>
+    <select id="f3" th:field="*{customerId}">
         <option th:each="c : ${customers}" th:value="${c.id}" th:text="${c.firstName}"></option>
     </select>
 

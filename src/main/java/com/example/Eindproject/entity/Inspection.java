@@ -36,6 +36,9 @@ public class Inspection {
     @OneToMany(mappedBy = "inspection")
     private List<Finding> findings;
 
+    @OneToOne(mappedBy = "inspection")
+    private Repair repair;
+
     public Date getPlannedDate() throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date d = sdf.parse(plannedDate.toString());

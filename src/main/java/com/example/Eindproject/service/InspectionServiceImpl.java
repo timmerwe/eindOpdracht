@@ -1,11 +1,8 @@
 package com.example.Eindproject.service;
 
-import com.example.Eindproject.dto.CarDto;
 import com.example.Eindproject.dto.InspectionDto;
 import com.example.Eindproject.entity.Car;
-import com.example.Eindproject.entity.Customer;
 import com.example.Eindproject.entity.Inspection;
-import com.example.Eindproject.mapping.CarMapper;
 import com.example.Eindproject.repos.CarRepository;
 import com.example.Eindproject.repos.InspectionRepository;
 import org.springframework.stereotype.Service;
@@ -64,14 +61,23 @@ public class InspectionServiceImpl implements InspectionService {
     }
 
     @Override
-    public Long changeInspectionStatus(Long id, String status) {
+    public ArrayList<InspectionDto> getAllInspectionsByCarId(Long id) throws ParseException {
+        ArrayList<InspectionDto> allInspectionsDto = new ArrayList<>();
+        List<Inspection> allInspections = repos.findAllByCar_id(id);
+        for (Inspection i : allInspections) {
+            InspectionDto dto = new InspectionDto(i.getId(), i.getCar().getId(), i.getPlannedDate().toString(), i.getStatus(), i.getCar().getLicencePlate());
+            allInspectionsDto.add(dto);
+        }
+        return allInspectionsDto;
+    }
+
+    @Override
+    public void changeInspectionStatus(Long id, String status) {
         Optional<Inspection> iOptional = repos.findById(id);
         if (iOptional.isPresent()){
             Inspection i = iOptional.get();
             i.setStatus(status);
             repos.save(i);
-            return i.getId();
         }
-        return null;
     }
 }
