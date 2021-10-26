@@ -7,6 +7,7 @@ import com.example.Eindproject.entity.Customer;
 import com.example.Eindproject.entity.Finding;
 import com.example.Eindproject.entity.Inspection;
 import com.example.Eindproject.mapping.CarMapper;
+import com.example.Eindproject.mapping.FindingMapper;
 import com.example.Eindproject.repos.CarRepository;
 import com.example.Eindproject.repos.CustomerRepository;
 import com.example.Eindproject.repos.FindingRepository;
@@ -30,7 +31,7 @@ public class FindingServiceImpl implements FindingService{
     @Override
     public long createFinding(FindingDto dto) {
         Inspection i = inspectionRepository.getById(dto.getInspection());
-        Finding f = new Finding(dto.getTitle(), dto.getDescription(), i);
+        Finding f = FindingMapper.fromDtoToEntity(dto, i);
         repos.save(f);
         return f.getId();
     }
@@ -45,7 +46,7 @@ public class FindingServiceImpl implements FindingService{
         ArrayList<FindingDto> allFindingDto = new ArrayList<>();
         List<Finding> allFindings = repos.findAllByInspection_id(id);
         for (Finding f : allFindings) {
-            FindingDto dto = new FindingDto(f.getId(), f.getTitle(), f.getDescription(), f.getInspection().getId());
+            FindingDto dto = FindingMapper.fromEntityToDto(f);
             allFindingDto.add(dto);
         }
         return allFindingDto;

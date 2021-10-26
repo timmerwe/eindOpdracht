@@ -18,47 +18,53 @@
 
 <table class="table">
   <tr>
-    <th scope="col">Titel</th>
-    <th scope="col">Beschrijving</th>
+    <th scope="col">Handeling</th>
+    <th scope="col">Onderdeel</th>
   </tr>
-<!--  <tr th:each="f: ${allFindings}">-->
-<!--    <td th:text="${f.title}" />-->
-<!--    <td th:text="${f.description}" />-->
-<!--  </tr>-->
+  <tr th:each="o: ${allRepairOperations}">
+    <td th:text="${o.carActionTitle}" />
+    <td th:text="${o.carPartName}" />
+  </tr>
 </table>
 
 
-<!--<h2>Voeg bevinding toe:</h2>-->
-<!--<form th:object="${finding}" th:action="@{'/inspection/edit-inspection/' + ${inspection.id}}" method="POST">-->
-<!--  <div class="form-group">-->
-<!--    <p th:if="${#fields.hasErrors('title')}" th:text="${#strings.listJoin(#fields.errors('title'), ', ')}"></p>-->
-<!--    <label for="findingTitle">Titel bevinding:</label><br>-->
-<!--    <input th:field="*{title}" type="text" id="findingTitle" name="findingTitle">-->
-<!--  </div>-->
+<h2>Voeg reparatie onderdeel toe:</h2>
+<form th:object="${repairOperation}" th:action="@{'/repair/add-repair-operation/' + ${repair.id}}" method="POST">
+  <div class="form-group">
+    <p th:if="${#fields.hasErrors('carAction')}" th:text="${#strings.listJoin(#fields.errors('carAction'), ', ')}"></p>
+    <label for="action">Handeling:</label><br>
+    <select class="form-control" id="action" th:field="*{carAction}">
+      <option value="" disabled>Kies een handeling</option>
+      <option th:each="a : ${allActions}" th:value="${a.id}" th:text="${a.title}"></option>
+    </select>
+  </div>
+  <div class="form-group">
+    <p th:if="${#fields.hasErrors('carPart')}" th:text="${#strings.listJoin(#fields.errors('carPart'), ', ')}"></p>
+    <label for="part">Onderdeel:</label><br>
+    <select class="form-control" id="part" th:field="*{carPart}">
+      <option value="" disabled>Kies een onderdeel</option>
+      <option th:each="p : ${allParts}" th:value="${p.id}" th:text="${p.name}"></option>
+    </select>
+  </div>
 
-<!--  <div class="form-group">-->
-<!--    <p th:if="${#fields.hasErrors('description')}" th:text="${#strings.listJoin(#fields.errors('description'), ', ')}"></p>-->
-<!--    <label for="findingDescription">Omschrijving bevinding:</label><br>-->
-<!--    <input th:field="*{description}" type="text" id="findingDescription" name="findingDescription">-->
-<!--  </div>-->
 
-<!--  <br><br>-->
-<!--  <button class="btn btn-primary" type="submit">Voeg toe</button>-->
-<!--</form>-->
+  <br><br>
+  <button class="btn btn-primary" type="submit">Voeg toe</button>
+</form>
 
-<!--<form th:object="${inspection}" th:action="@{'/inspection/edit-inspection-status/' + ${inspection.id}}" method="POST">-->
-<!--  <div class="form-group">-->
-<!--    <p th:if="${#fields.hasErrors('status')}" th:text="${#strings.listJoin(#fields.errors('status'), ', ')}"></p>-->
-<!--    <label for="status">Status:</label><br>-->
-<!--    <select id="status" th:field="*{status}">-->
-<!--      <option value="In uitvoering">In uitvoering</option>-->
-<!--      <option value="Goedgekerud">Goedgekeurd</option>-->
-<!--      <option value="Afgekeurd">Afgekeurd</option>-->
-<!--    </select>-->
-<!--  </div>-->
-<!--  <br><br>-->
-<!--  <button class="btn btn-primary" type="submit">Wijzig status</button>-->
-<!--</form>-->
+
+<form th:object="${repair}" th:action="@{'/repair/edit-repair-status/' + ${repair.id}}" method="POST">
+  <div class="form-group">
+    <p th:if="${#fields.hasErrors('status')}" th:text="${#strings.listJoin(#fields.errors('status'), ', ')}"></p>
+    <label for="status">Status:</label><br>
+    <select class="form-control" id="status" th:field="*{status}">
+      <option value="In uitvoering">In uitvoering</option>
+      <option value="Afgerond">Afgerond</option>
+    </select>
+  </div>
+  <br><br>
+  <button class="btn btn-primary" type="submit">Wijzig status</button>
+</form>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

@@ -16,17 +16,17 @@
     <div class="form-group">
         <p th:if="${#fields.hasErrors('plannedDate')}" th:text="${#strings.listJoin(#fields.errors('plannedDate'), ', ')}"></p>
         <label for="plannedDate">Datum:</label><br>
-        <input th:field="*{plannedDate}" type="date" id="plannedDate" name="plannedDate">
+        <input class="form-control" th:field="*{plannedDate}" type="date" id="plannedDate" name="plannedDate">
     </div>
 
     <div class="form-group">
         <p th:if="${#fields.hasErrors('arrangements')}" th:text="${#strings.listJoin(#fields.errors('arrangements'), ', ')}"></p>
         <label for="arrangements">Afspraken:</label><br>
-        <input th:field="*{arrangements}" type="text" id="arrangements" name="arrangements">
+        <input class="form-control" th:field="*{arrangements}" type="text" id="arrangements" name="arrangements">
     </div>
 
     <label for="inspection">Voorafgaande inspectie:</label><br>
-    <select id="inspection" th:field="*{inspectionId}">
+    <select class="form-control" id="inspection" th:field="*{inspectionId}">
         <option value="">Niet van toepassing</option>
         <option th:each="i : ${inspection}" th:value="${i.id}" th:text="${i.plannedDate}"></option>
     </select>

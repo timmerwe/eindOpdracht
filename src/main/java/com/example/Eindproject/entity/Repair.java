@@ -37,5 +37,5 @@ public class Repair {
     private Inspection inspection;
 
     @OneToMany(mappedBy = "repair")
-    private List<RepairAction> repairActions;
+    private List<RepairOperation> repairOperations;
 }

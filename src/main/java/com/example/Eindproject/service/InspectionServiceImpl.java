@@ -3,6 +3,7 @@ package com.example.Eindproject.service;
 import com.example.Eindproject.dto.InspectionDto;
 import com.example.Eindproject.entity.Car;
 import com.example.Eindproject.entity.Inspection;
+import com.example.Eindproject.mapping.InspectionMapper;
 import com.example.Eindproject.repos.CarRepository;
 import com.example.Eindproject.repos.InspectionRepository;
 import org.springframework.stereotype.Service;
@@ -29,14 +30,8 @@ public class InspectionServiceImpl implements InspectionService {
     @Override
     public Long createInspection(InspectionDto dto) throws ParseException {
         Car c = carRepository.getById(dto.getCarId());
-        //Date d = new SimpleDateFormat("yyyy-MM-dd").parse(dto.getPlannedDate());
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = sdf.parse(dto.getPlannedDate());
-        sdf.applyPattern("yyyy-MM-dd");
-        Date newDateString = sdf.parse(sdf.format(date));
-
-        Inspection i = new Inspection(c, newDateString, dto.getStatus());
+        Inspection i = InspectionMapper.fromDtoToEntity(dto, c);
 
         repos.save(i);
         return i.getId();
@@ -46,7 +41,7 @@ public class InspectionServiceImpl implements InspectionService {
     @Override
     public InspectionDto getInspection(Long id) throws ParseException {
         Inspection i = repos.getById(id);
-        return new InspectionDto(i.getId(), i.getCar().getId(), i.getPlannedDate().toString(), i.getStatus(), i.getCar().getLicencePlate());
+        return InspectionMapper.fromEntityToDto(i);
     }
 
     @Override
@@ -54,7 +49,7 @@ public class InspectionServiceImpl implements InspectionService {
         ArrayList<InspectionDto> allInspectionsDto = new ArrayList<>();
         List<Inspection> allInspections = repos.findAll();
         for (Inspection i : allInspections) {
-            InspectionDto dto = new InspectionDto(i.getId(), i.getCar().getId(), i.getPlannedDate().toString(), i.getStatus(), i.getCar().getLicencePlate());
+            InspectionDto dto = InspectionMapper.fromEntityToDto(i);
             allInspectionsDto.add(dto);
         }
         return allInspectionsDto;
@@ -65,7 +60,7 @@ public class InspectionServiceImpl implements InspectionService {
         ArrayList<InspectionDto> allInspectionsDto = new ArrayList<>();
         List<Inspection> allInspections = repos.findAllByCar_id(id);
         for (Inspection i : allInspections) {
-            InspectionDto dto = new InspectionDto(i.getId(), i.getCar().getId(), i.getPlannedDate().toString(), i.getStatus(), i.getCar().getLicencePlate());
+            InspectionDto dto = InspectionMapper.fromEntityToDto(i);
             allInspectionsDto.add(dto);
         }
         return allInspectionsDto;

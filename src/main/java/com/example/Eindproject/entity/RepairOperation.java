@@ -1,9 +1,6 @@
 package com.example.Eindproject.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.exception.DataException;
 
 import javax.persistence.*;
@@ -14,16 +11,29 @@ import java.util.Date;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
-public class RepairAction {
+public class RepairOperation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
+    @NonNull
     Date timestamp;
 
+    @NonNull
     double price;
 
+    @NonNull
     @ManyToOne()
     @JoinColumn(name="repair_id")
     private Repair repair;
+
+    @NonNull
+    @ManyToOne
+    @JoinColumn(name = "carAction_id")
+    private CarAction carAction;
+
+    @NonNull
+    @ManyToOne
+    @JoinColumn(name = "carPart_id")
+    private CarPart carPart;
 }

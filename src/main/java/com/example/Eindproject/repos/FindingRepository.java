@@ -7,7 +7,5 @@ import java.util.List;
 
 public interface FindingRepository extends JpaRepository<Finding, Long> {
 
-    Finding findByInspection_id(Long id);
-
     List<Finding> findAllByInspection_id(Long id);
 }

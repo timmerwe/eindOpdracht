@@ -16,7 +16,7 @@
     <div class="form-group">
         <p th:if="${#fields.hasErrors('plannedDate')}" th:text="${#strings.listJoin(#fields.errors('plannedDate'), ', ')}"></p>
         <label for="plannedDate">Datum:</label><br>
-        <input th:field="*{plannedDate}" type="date" id="plannedDate" name="plannedDate">
+        <input class="form-control" th:field="*{plannedDate}" type="date" id="plannedDate" name="plannedDate">
     </div>
 
     <br><br>

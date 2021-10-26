@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RepairServiceImpl implements RepairService{
@@ -83,6 +84,11 @@ public class RepairServiceImpl implements RepairService{
 
     @Override
     public void changeRepairStatus(Long id, String status) {
-
+        Optional<Repair> rOptional = repos.findById(id);
+        if (rOptional.isPresent()){
+            Repair r = rOptional.get();
+            r.setStatus(status);
+            repos.save(r);
+        }
     }
 }

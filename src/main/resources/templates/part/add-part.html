@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Auto registratie</title>
+    <title>Auto onderdeel registreren</title>
     <link rel="stylesheet" th:href="@{/CSS/Template.css}">
     <script th:src="@{/JS/main.js}"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -12,28 +12,25 @@
 <div th:replace="fragments/header :: header">
 </div>
 <h1>Voeg auto toe</h1>
-<form th:object="${car}" th:action="@{/add-car}" method="POST">
+<form th:object="${carPart}" th:action="@{/add-car-part}" method="POST">
     <div class="form-group">
-        <p th:if="${#fields.hasErrors('licencePlate')}" th:text="${#strings.listJoin(#fields.errors('licencePlate'), ', ')}"></p>
-        <label for="f1">Kenteken plaat:</label><br>
-        <input class="form-control" type="text" id="f1" name="f1" th:field="*{licencePlate}"><br>
+        <p th:if="${#fields.hasErrors('name')}" th:text="${#strings.listJoin(#fields.errors('name'), ', ')}"></p>
+        <label for="name">Onderdeel:</label><br>
+        <input class="form-control" type="text" id="name" name="name" th:field="*{name}"><br>
     </div>
 
     <div class="form-group">
-        <p th:if="${#fields.hasErrors('brand')}" th:text="${#strings.listJoin(#fields.errors('brand'), ', ')}"></p>
-        <label for="f2">Automerk:</label><br>
-        <input class="form-control" type="text" id="f2" name="f2" th:field="*{brand}"><br>
+        <p th:if="${#fields.hasErrors('serialNumber')}" th:text="${#strings.listJoin(#fields.errors('serialNumber'), ', ')}"></p>
+        <label for="description">Product code:</label><br>
+        <input class="form-control" type="text" id="description" name="description" th:field="*{serialNumber}"><br>
     </div>
 
     <div class="form-group">
-    <label for="f3">Klant:</label><br>
-    <select class="form-control" id="f3" th:field="*{customerId}">
-        <option th:each="c : ${customers}" th:value="${c.id}" th:text="${c.firstName}"></option>
-    </select>
+        <label for="price">Prijs (ex BTW):</label><br>
+        <input class="form-control" type="number" id="price" name="price" th:field="*{price}"><br>
     </div>
-
     <br><br>
-    <button class="btn btn-primary" type="submit">Voeg toe</button>
+    <button class="btn-primary btn" type="submit">Voeg toe</button>
 </form>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
