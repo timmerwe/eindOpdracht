@@ -75,4 +75,14 @@ public class InspectionServiceImpl implements InspectionService {
             repos.save(i);
         }
     }
+
+    @Override
+    public void changeInspectionWantsRepair(Long id, int wantsRepair) {
+        Optional<Inspection> iOptional = repos.findById(id);
+        if (iOptional.isPresent()){
+            Inspection i = iOptional.get();
+            i.setWantsRepair(wantsRepair);
+            repos.save(i);
+        }
+    }
 }

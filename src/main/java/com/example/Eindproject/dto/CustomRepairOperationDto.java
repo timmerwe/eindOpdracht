@@ -6,13 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CarActionDto {
+public class CustomRepairOperationDto {
     Long id;
 
     @NotBlank(message = "De handeling moet een titel bevatten")
@@ -23,9 +23,11 @@ public class CarActionDto {
 
     double price;
 
-    public CarActionDto(String title, String description, double price) {
-        this.title = title;
-        this.description = description;
-        this.price = price;
-    }
+    String timestamp;
+
+    Long repair;
+
+    @NotNull
+    Long carPart;
+
 }

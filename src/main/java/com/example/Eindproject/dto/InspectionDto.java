@@ -27,5 +27,7 @@ public class InspectionDto {
 
     String status;
 
+    int wantsRepair;
+
     String licencePlate;
 }

@@ -1,6 +1,7 @@
 package com.example.Eindproject.entity;
 
 import lombok.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,6 +21,9 @@ public class Car {
 
     @NonNull
     String brand;
+
+    @Lob
+    byte[] pdfFile;
 
     @ManyToOne()
     @JoinColumn(name="customer_id")

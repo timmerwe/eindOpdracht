@@ -25,6 +25,9 @@ public class CustomerDto {
     @Email(message = "Email ongeldig")
     private String email;
 
+    @NotBlank(message = "Telefoonnummer mag niet leeg zijn.")
+    private String phoneNumber;
+
     @NotBlank(message = "Postcode mag niet leeg zijn.")
     @Size(min = 6, max = 6, message = "Postcode moet 6 karaters lang zijn.")
     private String postalCode;

@@ -10,7 +10,7 @@ public class CarMapper {
     }
 
     public static CarDto fromEntityToDto (Car c) {
-        return new CarDto(c.getId(), c.getLicencePlate(), c.getBrand(), c.getCustomer().getId(), c.getCustomer().getFirstName());
+        return new CarDto(c.getId(), c.getLicencePlate(), c.getBrand(), c.getCustomer().getId(), c.getCustomer().getFirstName(), c.getPdfFile());
     }
 
 }

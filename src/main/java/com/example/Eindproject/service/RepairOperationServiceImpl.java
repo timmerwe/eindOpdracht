@@ -1,5 +1,6 @@
 package com.example.Eindproject.service;
 
+import com.example.Eindproject.dto.CustomRepairOperationDto;
 import com.example.Eindproject.dto.InspectionDto;
 import com.example.Eindproject.dto.RepairOperationDto;
 import com.example.Eindproject.entity.*;
@@ -36,7 +37,7 @@ public class RepairOperationServiceImpl implements RepairOperationService{
     public Long createRepairOperation(RepairOperationDto dto) throws ParseException {
         CarAction a = carActionRepository.getById(dto.getCarAction());
         CarPart p = carPartRepository.getById(dto.getCarPart());
-        Repair r = repairRepository.getById(dto.getId());
+        Repair r = repairRepository.getById(dto.getRepair());
 
         Date date = new java.util.Date();
 
@@ -63,7 +64,7 @@ public class RepairOperationServiceImpl implements RepairOperationService{
         ArrayList<RepairOperationDto> allRepairOperationsDto = new ArrayList<>();
         List<RepairOperation> allRepairOperations = repos.findAllByRepair_Id(id);
         for (RepairOperation r : allRepairOperations) {
-            RepairOperationDto dto = new RepairOperationDto(r.getId(), r.getTimestamp().toString(), r.getPrice(), r.getRepair().getId(), r.getCarAction().getId(), r.getCarAction().getTitle(), r.getCarPart().getId(), r.getCarPart().getName());
+            RepairOperationDto dto = new RepairOperationDto(r.getId(), r.getTimestamp().toString(), r.getPrice(), r.getRepair().getId(), r.getCarAction().getId(), r.getCarAction().getTitle(), r.getCarAction().getDescription(), r.getCarPart().getId(), r.getCarPart().getName());
             allRepairOperationsDto.add(dto);
         }
         return allRepairOperationsDto;

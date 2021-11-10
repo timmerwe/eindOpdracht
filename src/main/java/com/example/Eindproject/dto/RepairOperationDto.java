@@ -30,8 +30,16 @@ public class RepairOperationDto {
 
     String carActionTitle;
 
+    String carActionDescription;
+
     @NotNull
     Long carPart;
 
     String carPartName;
+
+    public RepairOperationDto(Long repair, Long carAction, Long carPart) {
+        this.repair = repair;
+        this.carAction = carAction;
+        this.carPart = carPart;
+    }
 }

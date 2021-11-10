@@ -21,6 +21,6 @@ public class InspectionMapper {
     }
 
     public static InspectionDto fromEntityToDto (Inspection i) throws ParseException {
-        return new InspectionDto(i.getId(), i.getCar().getId(), i.getPlannedDate().toString(), i.getStatus(), i.getCar().getLicencePlate());
+        return new InspectionDto(i.getId(), i.getCar().getId(), i.getPlannedDate().toString(), i.getStatus(), i.getWantsRepair(), i.getCar().getLicencePlate());
     }
 }

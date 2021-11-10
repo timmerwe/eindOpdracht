@@ -7,6 +7,7 @@ import com.example.Eindproject.entity.Part;
 import com.example.Eindproject.mapping.CustomerMapper;
 import com.example.Eindproject.repos.CustomerRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;

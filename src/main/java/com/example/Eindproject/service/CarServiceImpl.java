@@ -32,6 +32,11 @@ public class CarServiceImpl implements CarService{
             Customer customer = customerRepository.getById(carDto.getCustomerId());
             c.setCustomer(customer);
         }
+
+        if(carDto.getPdfFile() != null && carDto.getPdfFile().length > 0){
+            c.setPdfFile(carDto.getPdfFile());
+        }
+
         repos.save(c);
         return c.getId();
 

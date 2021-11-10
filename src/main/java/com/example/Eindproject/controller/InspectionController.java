@@ -84,4 +84,10 @@ public class InspectionController {
         service.changeInspectionStatus(inspectionId, inspectionDto.getStatus());
         return "redirect:/inspection/edit-inspection/" + inspectionId;
     }
+
+    @PostMapping("/inspection/edit-inspection-repair/{id}")
+    public String editInspectionWantsRepair(@Valid @ModelAttribute("inspection") InspectionDto inspectionDto, BindingResult bindingResult, Model model, @PathVariable("id") Long inspectionId) throws ParseException {
+        service.changeInspectionWantsRepair(inspectionId, inspectionDto.getWantsRepair());
+        return "redirect:/inspection/edit-inspection/" + inspectionId;
+    }
 }

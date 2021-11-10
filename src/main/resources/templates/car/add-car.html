@@ -12,7 +12,7 @@
 <div th:replace="fragments/header :: header">
 </div>
 <h1>Voeg auto toe</h1>
-<form th:object="${car}" th:action="@{/add-car}" method="POST">
+<form th:object="${car}" th:action="@{/add-car}" method="POST" enctype="multipart/form-data">
     <div class="form-group">
         <p th:if="${#fields.hasErrors('licencePlate')}" th:text="${#strings.listJoin(#fields.errors('licencePlate'), ', ')}"></p>
         <label for="f1">Kenteken plaat:</label><br>
@@ -30,6 +30,11 @@
     <select class="form-control" id="f3" th:field="*{customerId}">
         <option th:each="c : ${customers}" th:value="${c.id}" th:text="${c.firstName}"></option>
     </select>
+    </div>
+
+    <div class="form-group">
+        <label for="carPdf">Auto document pdf:</label><br>
+        <input accept="application/pdf" class="form-control" type="file" id="carPdf" name="carPdf"><br>
     </div>
 
     <br><br>

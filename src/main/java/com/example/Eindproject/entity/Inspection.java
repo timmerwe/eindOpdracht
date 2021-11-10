@@ -3,6 +3,7 @@ package com.example.Eindproject.entity;
 import lombok.*;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -32,6 +33,9 @@ public class Inspection {
 
     @NonNull
     String status;
+
+    @Nullable
+    int wantsRepair = 2;
 
     @OneToMany(mappedBy = "inspection")
     private List<Finding> findings;

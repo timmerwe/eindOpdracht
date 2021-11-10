@@ -11,4 +11,5 @@ public interface InspectionService {
     public ArrayList<InspectionDto> getAllInspections() throws ParseException;
     public ArrayList<InspectionDto> getAllInspectionsByCarId(Long id) throws ParseException;
     public void changeInspectionStatus(Long id, String status);
+    public void changeInspectionWantsRepair(Long id, int wantsRepair);
 }

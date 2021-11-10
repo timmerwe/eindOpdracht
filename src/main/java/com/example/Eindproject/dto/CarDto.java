@@ -23,4 +23,6 @@ public class CarDto {
     Long customerId;
 
     String customerName;
+
+    byte[] pdfFile;
 }

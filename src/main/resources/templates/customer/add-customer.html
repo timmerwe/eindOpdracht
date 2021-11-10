@@ -32,6 +32,12 @@
         </div>
 
         <div class="form-group">
+            <p th:if="${#fields.hasErrors('phoneNumber')}" th:text="${#strings.listJoin(#fields.errors('phoneNumber'), ', ')}"></p>
+            <label for="f7">Telefoonnummer:</label><br>
+            <input class="form-control" type="number" id="f7" name="f7" th:field="*{phoneNumber}"><br>
+        </div>
+
+        <div class="form-group">
             <p th:if="${#fields.hasErrors('postalCode')}" th:text="${#strings.listJoin(#fields.errors('postalCode'), ', ')}"></p>
             <label for="f4">Postcode:</label><br>
             <input class="form-control" type="text" id="f4" name="f4" th:field="*{postalCode}"><br>

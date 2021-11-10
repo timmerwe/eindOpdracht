@@ -1,11 +1,7 @@
 package com.example.Eindproject.controller;
 
-import com.example.Eindproject.dto.FindingDto;
-import com.example.Eindproject.dto.InspectionDto;
-import com.example.Eindproject.dto.RepairDto;
-import com.example.Eindproject.dto.RepairOperationDto;
+import com.example.Eindproject.dto.*;
 import com.example.Eindproject.service.*;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,9 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
-import java.sql.Timestamp;
 import java.text.ParseException;
-import java.util.Date;
 
 @Controller
 public class RepairController {
@@ -75,6 +69,7 @@ public class RepairController {
         model.addAttribute("allActions", carActionService.getAllCarActions());
         model.addAttribute("allParts", carPartService.getAllCarParts());
         model.addAttribute("allRepairOperations", repairOperationService.getAllRepairOperationsById(repairID));
+        model.addAttribute("customRepairOperation", new CustomRepairOperationDto());
 
         return "repair/edit-repair";
     }
@@ -94,9 +89,26 @@ public class RepairController {
         return "redirect:/repair/edit-repair/" + repairId;
     }
 
+    @PostMapping("/repair/add-custom-repair-operation/{id}")
+    public String addCustomRepairOperation(@Valid @ModelAttribute("customRepairOperation") CustomRepairOperationDto cro, BindingResult bindingResult, Model model, @PathVariable("id") Long repairId) throws ParseException {
+        model.addAttribute("repair", service.getRepair(repairId));
+        model.addAttribute("allActions", carActionService.getAllCarActions());
+        model.addAttribute("allParts", carPartService.getAllCarParts());
+        if(bindingResult.hasErrors()) {
+            return "repair/edit-repair";
+        }
+        CarActionDto newAction = new CarActionDto(cro.getTitle(), cro.getDescription(), cro.getPrice());
+        Long newActionId = carActionService.createCarAction(newAction, true);
+        RepairOperationDto repairOperationDto = new RepairOperationDto(repairId, newActionId, cro.getCarPart());
+        repairOperationService.createRepairOperation(repairOperationDto);
+
+        return "redirect:/repair/edit-repair/" + repairId;
+    }
+
     @PostMapping("/repair/edit-repair-status/{id}")
     public String editRepairStatus(@ModelAttribute("repair") RepairDto repairDto, @PathVariable("id") Long repairId) {
         service.changeRepairStatus(repairId, repairDto.getStatus());
         return "redirect:/repair/edit-repair/" + repairId;
     }
+
 }

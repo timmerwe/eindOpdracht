@@ -6,15 +6,17 @@ import com.example.Eindproject.dto.InspectionDto;
 import com.example.Eindproject.service.CarService;
 import com.example.Eindproject.service.CustomerService;
 import com.example.Eindproject.service.InspectionService;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.awt.*;
+import java.io.IOException;
 import java.text.ParseException;
 
 @Controller
@@ -39,14 +41,21 @@ public class CarController {
     }
 
     @PostMapping("/add-car")
-    public String addCar(@Valid @ModelAttribute("car") CarDto carDto, BindingResult bindingResult, Model model){
+    public String addCar(@Valid @ModelAttribute("car") CarDto carDto, @RequestParam("carPdf") MultipartFile file, BindingResult bindingResult, Model model) throws IOException {
         model.addAttribute("customers", customerService.getAll());
         if(bindingResult.hasErrors()) {
             return "car/add-car";
         }
 
+        carDto.setPdfFile(file.getBytes());
        service.createCar(carDto);
         return "redirect:/cars";
+    }
+
+    @Transactional
+    @GetMapping(value = "/download/pdf/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
+    public @ResponseBody byte[] showCarDocuments(@PathVariable Long id){
+        return service.getCar(id).getPdfFile();
     }
 
     @GetMapping("/cars")

@@ -18,6 +18,7 @@
         <th scope="col">Merk</th>
         <th scope="col">Klant</th>
         <th scope="col">Acties</th>
+        <th scope="col">Document(en)</th>
     </tr>
     <tr th:each="car: ${cars}">
         <td th:text="${car.licencePlate}" />
@@ -27,6 +28,9 @@
             <a th:href="@{'/car/add-inspection/' + ${car.id}}">Maak keuring aan</a>
             <br>
             <a th:href="@{'/repair/add-repair/' + ${car.id}}">Maak reparatie aan</a>
+        </td>
+        <td>
+            <a target="_blank" th:if="${car.pdfFile != null}" th:href="@{'/download/pdf/' + ${car.id}}">Pdf</a>
         </td>
     </tr>
 </table>
