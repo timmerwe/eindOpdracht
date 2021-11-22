@@ -25,12 +25,11 @@
         <td th:text="*{car.brand}" />
         <td th:text="*{car.customerName}" />
         <td>
-            <a th:href="@{'/car/add-inspection/' + ${car.id}}">Maak keuring aan</a>
-            <br>
-            <a th:href="@{'/repair/add-repair/' + ${car.id}}">Maak reparatie aan</a>
+            <a sec:authorize="hasRole('ADMIN') || hasRole('ADMINISTRATION')" th:href="@{'/administration/car/add-inspection/' + ${car.id}}">Maak keuring aan</a>
+            <a sec:authorize="hasRole('ADMIN') || hasRole('MECHANIC')" th:href="@{'/mechanic/repair/add-repair/' + ${car.id}}">Maak reparatie aan</a>
         </td>
         <td>
-            <a target="_blank" th:if="${car.pdfFile != null}" th:href="@{'/download/pdf/' + ${car.id}}">Pdf</a>
+            <a target="_blank" th:if="${car.pdfFileId != null}" th:href="@{'/download/pdf/' + ${car.pdfFileId}}">Pdf</a>
         </td>
     </tr>
 </table>

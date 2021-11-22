@@ -1,6 +1,5 @@
 package com.example.Eindproject.repos;
 
-import com.example.Eindproject.entity.Finding;
 import com.example.Eindproject.entity.RepairOperation;
 import org.springframework.data.jpa.repository.JpaRepository;
 

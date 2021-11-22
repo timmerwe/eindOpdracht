@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>To call</title>
     <link rel="stylesheet" th:href="@{/CSS/Template.css}">
     <script th:src="@{/JS/main.js}"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -11,17 +11,44 @@
 <body>
 <div th:replace="fragments/header :: header">
 </div>
-<h1>Klanten</h1>
+<h1>Te bellen klanten</h1>
+<h2>Reparatie niet uitvoeren</h2>
 <table class="table">
     <tr>
-        <th scope="col">Voornaam</th>
-        <th scope="col">Achternaam</th>
+        <th scope="col">Kenteken</th>
+        <th scope="col">Datum</th>
+        <th scope="col">Klant</th>
         <th scope="">Telefoonnummer</th>
+        <th>Acties</th>
     </tr>
-    <tr th:each="c: ${customers}">
-        <td th:text="*{c.firstName}" />
-        <td th:text="*{c.lastName}" />
-        <td th:text="*{c.phoneNumber}" />
+    <tr th:each="i: ${inspections}">
+        <td th:text="*{i[0].licencePlate}" />
+        <td th:text="*{i[0].plannedDate}" />
+        <td th:text="*{i[1].firstName}" />
+        <td th:text="*{i[1].phoneNumber}" />
+        <td>
+            <a th:href="@{'/inspection/finished/' + *{i[0].id}}">Afhaalafspraak gemaakt / verwijderen uit te bellen</a>
+        </td>
+    </tr>
+</table>
+
+<h2>Reparatie voltooid</h2>
+<table class="table">
+    <tr>
+        <th scope="col">Kenteken</th>
+        <th scope="col">Datum</th>
+        <th scope="col">Klant</th>
+        <th scope="">Telefoonnummer</th>
+        <th>Acties</th>
+    </tr>
+    <tr th:each="r: ${repairs}">
+        <td th:text="*{r[0].licencePlate}" />
+        <td th:text="*{r[0].plannedDate}" />
+        <td th:text="*{r[1].firstName}" />
+        <td th:text="*{r[1].phoneNumber}" />
+        <td>
+            <a th:href="@{'/repair/finished/' + *{r[0].id}}">Afhaalafspraak gemaakt / verwijderen uit te bellen</a>
+        </td>
     </tr>
 </table>
 

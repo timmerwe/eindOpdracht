@@ -1,6 +1,5 @@
 package com.example.Eindproject.controller;
 
-import com.example.Eindproject.dto.CarActionDto;
 import com.example.Eindproject.dto.CarPartDto;
 import com.example.Eindproject.service.CarPartService;
 import org.springframework.stereotype.Controller;
@@ -21,20 +20,20 @@ public class CarPartController {
         this.service = service;
     }
 
-    @GetMapping("/add-car-part")
+    @GetMapping("/backoffice/add-car-part")
     public String addCarPart(Model model){
         model.addAttribute("carPart", new CarPartDto());
 
         return "part/add-part";
     }
 
-    @PostMapping("/add-car-part")
+    @PostMapping("/backoffice/add-car-part")
     public String addCarPart(@Valid @ModelAttribute("carPart") CarPartDto carPartDto, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()) {
             return "part/add-part";
         }
 
         service.createCarPart(carPartDto);
-        return "redirect:/cars";
+        return "redirect:/backoffice/add-car-part";
     }
 }

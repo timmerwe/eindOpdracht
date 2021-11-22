@@ -1,15 +1,9 @@
 package com.example.Eindproject.service;
 
-import com.example.Eindproject.dto.CarDto;
 import com.example.Eindproject.dto.FindingDto;
-import com.example.Eindproject.entity.Car;
-import com.example.Eindproject.entity.Customer;
 import com.example.Eindproject.entity.Finding;
 import com.example.Eindproject.entity.Inspection;
-import com.example.Eindproject.mapping.CarMapper;
 import com.example.Eindproject.mapping.FindingMapper;
-import com.example.Eindproject.repos.CarRepository;
-import com.example.Eindproject.repos.CustomerRepository;
 import com.example.Eindproject.repos.FindingRepository;
 import com.example.Eindproject.repos.InspectionRepository;
 import org.springframework.stereotype.Service;
@@ -34,11 +28,6 @@ public class FindingServiceImpl implements FindingService{
         Finding f = FindingMapper.fromDtoToEntity(dto, i);
         repos.save(f);
         return f.getId();
-    }
-
-    @Override
-    public FindingDto getFinding(long id) {
-        return null;
     }
 
     @Override

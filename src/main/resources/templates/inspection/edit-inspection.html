@@ -14,6 +14,8 @@
 <h1 th:text="'Bewerk inspectie voor kenteken:' + ${inspection.licencePlate} + ' | Datum:' + ${inspection.plannedDate} "></h1>
 <br>
 <p th:text="'Status:' + ${inspection.status}"></p>
+<a class="btn-primary btn" th:href="@{'/inspection/generateReceipt/' + *{inspection.id}}">Genereer bon</a>
+
 <h2>Bevindingen:</h2>
 
 <table class="table">
@@ -29,7 +31,7 @@
 
 
 <h2>Voeg bevinding toe:</h2>
-<form th:object="${finding}" th:action="@{'/inspection/edit-inspection/' + ${inspection.id}}" method="POST">
+<form th:object="${finding}" th:action="@{'/mechanic/inspection/edit-inspection/' + ${inspection.id}}" method="POST">
     <div class="form-group">
         <p th:if="${#fields.hasErrors('title')}" th:text="${#strings.listJoin(#fields.errors('title'), ', ')}"></p>
         <label for="findingTitle">Titel bevinding:</label><br>
@@ -46,7 +48,7 @@
     <button class="btn btn-primary" type="submit">Voeg toe</button>
 </form>
 
-<form th:object="${inspection}" th:action="@{'/inspection/edit-inspection-status/' + ${inspection.id}}" method="POST">
+<form th:object="${inspection}" th:action="@{'/mechanic/inspection/edit-inspection-status/' + ${inspection.id}}" method="POST">
     <div class="form-group">
         <p th:if="${#fields.hasErrors('status')}" th:text="${#strings.listJoin(#fields.errors('status'), ', ')}"></p>
         <label for="status">Status:</label><br>
@@ -60,7 +62,7 @@
     <button class="btn btn-primary" type="submit">Wijzig status</button>
 </form>
 
-<form th:object="${inspection}" th:action="@{'/inspection/edit-inspection-repair/' + ${inspection.id}}" method="POST">
+<form th:object="${inspection}" th:action="@{'/mechanic/inspection/edit-inspection-repair/' + ${inspection.id}}" method="POST">
     <div class="form-group">
         <p th:if="${#fields.hasErrors('wantsRepair')}" th:text="${#strings.listJoin(#fields.errors('wantsRepair'), ', ')}"></p>
         <label for="status">Klant akkoord reparatie:</label><br>

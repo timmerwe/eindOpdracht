@@ -13,7 +13,9 @@
 </div>
 <h1 th:text="'Bewerk reparatie voor kenteken:' + ${repair.licencePlate} + ' | Datum:' + ${repair.plannedDate} "></h1>
 <br>
+<a class="btn-primary btn" th:if="*{repair.inspectionId > 0}" th:href="@{'/mechanic/inspection/edit-inspection/' + *{repair.inspectionId}}">Voorafgaande inspectie</a>
 <p th:text="'Status:' + ${repair.status}"></p>
+<a class="btn-primary btn" th:href="@{'/repair/generateReceipt/' + *{repair.id}}">Genereer bon</a>
 <h2>Reparatie handelingen:</h2>
 
 <table class="table">
@@ -33,7 +35,7 @@
 
 
 <h2>Voeg reparatie onderdeel toe:</h2>
-<form th:object="${repairOperation}" th:action="@{'/repair/add-repair-operation/' + ${repair.id}}" method="POST">
+<form th:object="${repairOperation}" th:action="@{'/mechanic/repair/add-repair-operation/' + ${repair.id}}" method="POST">
   <div class="form-group">
     <p th:if="${#fields.hasErrors('carAction')}" th:text="${#strings.listJoin(#fields.errors('carAction'), ', ')}"></p>
     <label for="action">Handeling:</label><br>
@@ -60,7 +62,7 @@
 
 
 <h2>Voeg speciale hadeling toe</h2>
-<form th:object="${customRepairOperation}" th:action="@{'/repair/add-custom-repair-operation/' + ${repair.id}}" method="POST">
+<form th:object="${customRepairOperation}" th:action="@{'/mechanic/repair/add-custom-repair-operation/' + ${repair.id}}" method="POST">
   <div class="form-group">
     <p th:if="${#fields.hasErrors('title')}" th:text="${#strings.listJoin(#fields.errors('title'), ', ')}"></p>
     <label for="title">Handeling titel:</label><br>
@@ -95,13 +97,13 @@
 
 
 
-<form th:object="${repair}" th:action="@{'/repair/edit-repair-status/' + ${repair.id}}" method="POST">
+<form th:object="${repair}" th:action="@{'/mechanic/repair/edit-repair-status/' + ${repair.id}}" method="POST">
   <div class="form-group">
     <p th:if="${#fields.hasErrors('status')}" th:text="${#strings.listJoin(#fields.errors('status'), ', ')}"></p>
     <label for="status">Status:</label><br>
     <select class="form-control" id="status" th:field="*{status}">
       <option value="In uitvoering">In uitvoering</option>
-      <option value="Afgerond">Afgerond</option>
+      <option value="Voltooid">Voltooid</option>
     </select>
   </div>
   <br><br>

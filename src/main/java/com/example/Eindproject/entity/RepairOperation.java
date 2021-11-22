@@ -1,7 +1,6 @@
 package com.example.Eindproject.entity;
 
 import lombok.*;
-import org.hibernate.exception.DataException;
 
 import javax.persistence.*;
 import java.util.Date;

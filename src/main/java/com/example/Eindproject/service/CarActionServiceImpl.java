@@ -1,11 +1,7 @@
 package com.example.Eindproject.service;
 
 import com.example.Eindproject.dto.CarActionDto;
-import com.example.Eindproject.dto.CarDto;
-import com.example.Eindproject.entity.Car;
 import com.example.Eindproject.entity.CarAction;
-import com.example.Eindproject.entity.Customer;
-import com.example.Eindproject.mapping.CarMapper;
 import com.example.Eindproject.repos.CarActionRepository;
 import org.springframework.stereotype.Service;
 
@@ -26,12 +22,6 @@ public class CarActionServiceImpl implements CarActionService{
         CarAction c = new CarAction(carActionDto.getTitle(), carActionDto.getDescription(), carActionDto.getPrice(), customAction);
         repos.save(c);
         return c.getId();
-    }
-
-    @Override
-    public CarActionDto getCarAction(Long id) {
-        CarAction a = repos.getById(id);
-        return new CarActionDto(a.getId(), a.getTitle(), a.getDescription(), a.getPrice());
     }
 
     @Override

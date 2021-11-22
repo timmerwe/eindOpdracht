@@ -32,10 +32,12 @@ public class Repair {
     @JoinColumn(name="car_id")
     private Car car;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "inspection_id")
     private Inspection inspection;
 
     @OneToMany(mappedBy = "repair")
     private List<RepairOperation> repairOperations;
+
+    boolean pickupApointment = false;
 }

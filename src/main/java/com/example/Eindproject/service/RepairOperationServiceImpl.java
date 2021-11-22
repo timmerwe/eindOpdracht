@@ -1,15 +1,14 @@
 package com.example.Eindproject.service;
 
-import com.example.Eindproject.dto.CustomRepairOperationDto;
-import com.example.Eindproject.dto.InspectionDto;
 import com.example.Eindproject.dto.RepairOperationDto;
-import com.example.Eindproject.entity.*;
-import com.example.Eindproject.mapping.InspectionMapper;
+import com.example.Eindproject.entity.CarAction;
+import com.example.Eindproject.entity.CarPart;
+import com.example.Eindproject.entity.Repair;
+import com.example.Eindproject.entity.RepairOperation;
 import com.example.Eindproject.repos.CarActionRepository;
 import com.example.Eindproject.repos.CarPartRepository;
 import com.example.Eindproject.repos.RepairOperationRepository;
 import com.example.Eindproject.repos.RepairRepository;
-import org.aspectj.asm.internal.CharOperation;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -34,7 +33,7 @@ public class RepairOperationServiceImpl implements RepairOperationService{
         this.repairRepository = repairRepository;
     }
     @Override
-    public Long createRepairOperation(RepairOperationDto dto) throws ParseException {
+    public void createRepairOperation(RepairOperationDto dto) throws ParseException {
         CarAction a = carActionRepository.getById(dto.getCarAction());
         CarPart p = carPartRepository.getById(dto.getCarPart());
         Repair r = repairRepository.getById(dto.getRepair());
@@ -51,12 +50,6 @@ public class RepairOperationServiceImpl implements RepairOperationService{
         RepairOperation o = new RepairOperation(newDateString, price, r, a, p);
 
         repos.save(o);
-        return o.getId();
-    }
-
-    @Override
-    public RepairOperationDto getRepairOperation(Long id) {
-        return null;
     }
 
     @Override

@@ -1,8 +1,6 @@
 package com.example.Eindproject.controller;
 
 import com.example.Eindproject.dto.CarDto;
-import com.example.Eindproject.dto.CustomerDto;
-import com.example.Eindproject.dto.InspectionDto;
 import com.example.Eindproject.service.CarService;
 import com.example.Eindproject.service.CustomerService;
 import com.example.Eindproject.service.InspectionService;
@@ -15,9 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.awt.*;
 import java.io.IOException;
-import java.text.ParseException;
 
 @Controller
 public class CarController {
@@ -32,7 +28,7 @@ public class CarController {
         this.inspectionService = inspectionService;
     }
 
-    @GetMapping("/add-car")
+    @GetMapping("/administration/add-car")
     public String addCar(Model model){
         model.addAttribute("car", new CarDto());
         model.addAttribute("customers", customerService.getAll());
@@ -40,7 +36,7 @@ public class CarController {
         return "car/add-car";
     }
 
-    @PostMapping("/add-car")
+    @PostMapping("/administration/add-car")
     public String addCar(@Valid @ModelAttribute("car") CarDto carDto, @RequestParam("carPdf") MultipartFile file, BindingResult bindingResult, Model model) throws IOException {
         model.addAttribute("customers", customerService.getAll());
         if(bindingResult.hasErrors()) {
@@ -55,7 +51,7 @@ public class CarController {
     @Transactional
     @GetMapping(value = "/download/pdf/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
     public @ResponseBody byte[] showCarDocuments(@PathVariable Long id){
-        return service.getCar(id).getPdfFile();
+        return service.getPdf(id);
     }
 
     @GetMapping("/cars")

@@ -3,7 +3,6 @@ package com.example.Eindproject.controller;
 import com.example.Eindproject.dto.FindingDto;
 import com.example.Eindproject.dto.InspectionDto;
 import com.example.Eindproject.service.CarService;
-import com.example.Eindproject.service.CustomerService;
 import com.example.Eindproject.service.FindingService;
 import com.example.Eindproject.service.InspectionService;
 import org.springframework.stereotype.Controller;
@@ -30,7 +29,7 @@ public class InspectionController {
         this.findingService = findingService;
     }
 
-    @GetMapping("/car/add-inspection/{id}")
+    @GetMapping("/administration/car/add-inspection/{id}")
     public String addInspection(Model model, @PathVariable("id") Long carId){
         model.addAttribute("inspection", new InspectionDto());
         model.addAttribute("car",carService.getCar(carId));
@@ -38,7 +37,7 @@ public class InspectionController {
         return "inspection/add-inspection";
     }
 
-    @PostMapping("/car/add-inspection/{id}")
+    @PostMapping("/administration/car/add-inspection/{id}")
     public String addInspection(@Valid @ModelAttribute("inspection") InspectionDto inspectionDto, BindingResult bindingResult, Model model, @PathVariable("id") Long carId) throws ParseException {
         model.addAttribute("car",carService.getCar(carId));
         if(bindingResult.hasErrors()) {
@@ -48,7 +47,7 @@ public class InspectionController {
         inspectionDto.setStatus("Ingepland");
         service.createInspection(inspectionDto);
 
-        return "redirect:/cars";
+        return "redirect:/inspections";
     }
 
     @GetMapping("/inspections")
@@ -58,7 +57,7 @@ public class InspectionController {
         return "inspection/inspections";
     }
 
-    @GetMapping("/inspection/edit-inspection/{id}")
+    @GetMapping("/mechanic/inspection/edit-inspection/{id}")
     public String editInspection(Model model, @PathVariable("id") Long inspectionId) throws ParseException {
         model.addAttribute("inspection", service.getInspection(inspectionId));
         model.addAttribute("finding", new FindingDto());
@@ -67,7 +66,7 @@ public class InspectionController {
         return "inspection/edit-inspection";
     }
 
-    @PostMapping("/inspection/edit-inspection/{id}")
+    @PostMapping("/mechanic/inspection/edit-inspection/{id}")
     public String editInspection(@Valid @ModelAttribute("finding") FindingDto findingDto, BindingResult bindingResult, Model model, @PathVariable("id") Long inspectionId) throws ParseException {
         model.addAttribute("inspection",service.getInspection(inspectionId));
         model.addAttribute("allFindings", findingService.getAllFindingsById(inspectionId));
@@ -76,18 +75,24 @@ public class InspectionController {
         }
         findingDto.setInspection(inspectionId);
         findingService.createFinding(findingDto);
-        return "redirect:/inspection/edit-inspection/" + inspectionId;
+        return "redirect:/mechanic/inspection/edit-inspection/" + inspectionId;
     }
 
-    @PostMapping("/inspection/edit-inspection-status/{id}")
+    @PostMapping("/mechanic/inspection/edit-inspection-status/{id}")
     public String editInspectionStatus(@Valid @ModelAttribute("inspection") InspectionDto inspectionDto, BindingResult bindingResult, Model model, @PathVariable("id") Long inspectionId) throws ParseException {
         service.changeInspectionStatus(inspectionId, inspectionDto.getStatus());
-        return "redirect:/inspection/edit-inspection/" + inspectionId;
+        return "redirect:/mechanic/inspection/edit-inspection/" + inspectionId;
     }
 
-    @PostMapping("/inspection/edit-inspection-repair/{id}")
+    @PostMapping("/mechanic/inspection/edit-inspection-repair/{id}")
     public String editInspectionWantsRepair(@Valid @ModelAttribute("inspection") InspectionDto inspectionDto, BindingResult bindingResult, Model model, @PathVariable("id") Long inspectionId) throws ParseException {
         service.changeInspectionWantsRepair(inspectionId, inspectionDto.getWantsRepair());
-        return "redirect:/inspection/edit-inspection/" + inspectionId;
+        return "redirect:/mechanic/inspection/edit-inspection/" + inspectionId;
+    }
+
+    @GetMapping("/inspection/finished/{id}")
+    public String editInspectionFinished(@PathVariable("id") Long inspectionId) {
+        service.setToFinished(inspectionId);
+        return "redirect:/administration/call-list/";
     }
 }

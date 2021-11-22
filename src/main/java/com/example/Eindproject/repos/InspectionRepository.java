@@ -8,4 +8,5 @@ import java.util.List;
 public interface InspectionRepository extends JpaRepository<Inspection, Long> {
 
     List<Inspection> findAllByCar_id(Long car_id);
+    List<Inspection> findAllByWantsRepairAndFinished(int wantsRepair, boolean finished);
 }

@@ -12,7 +12,7 @@
 <div th:replace="fragments/header :: header">
 </div>
 <h1>Voeg auto toe</h1>
-<form th:object="${carPart}" th:action="@{/add-car-part}" method="POST">
+<form th:object="${carPart}" th:action="@{/backoffice/add-car-part}" method="POST">
     <div class="form-group">
         <p th:if="${#fields.hasErrors('name')}" th:text="${#strings.listJoin(#fields.errors('name'), ', ')}"></p>
         <label for="name">Onderdeel:</label><br>

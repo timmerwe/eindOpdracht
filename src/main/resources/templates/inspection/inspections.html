@@ -24,7 +24,7 @@
         <td th:text="*{i.plannedDate}" />
         <td th:text="*{i.status}" />
         <td>
-            <a th:href="@{'/inspection/edit-inspection/' + *{i.id}}">Bewerk keuring</a>
+            <a sec:authorize="hasRole('ADMIN') || hasRole('MECHANIC')" th:href="@{'/mechanic/inspection/edit-inspection/' + *{i.id}}">Bewerk keuring</a>
         </td>
     </tr>
 </table>

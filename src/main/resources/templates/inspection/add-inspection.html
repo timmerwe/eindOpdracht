@@ -12,7 +12,7 @@
 <div th:replace="fragments/header :: header">
 </div>
 <h1 th:text="'Inspectie inplannen voor kenteken:' + ${car.licencePlate}"></h1>
-<form th:object="${inspection}" th:action="@{'/car/add-inspection/' + ${car.id}}" method="POST">
+<form th:object="${inspection}" th:action="@{'/administration/car/add-inspection/' + ${car.id}}" method="POST">
     <div class="form-group">
         <p th:if="${#fields.hasErrors('plannedDate')}" th:text="${#strings.listJoin(#fields.errors('plannedDate'), ', ')}"></p>
         <label for="plannedDate">Datum:</label><br>

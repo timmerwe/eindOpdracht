@@ -1,6 +1,9 @@
 package com.example.Eindproject.controller;
 
-import com.example.Eindproject.dto.*;
+import com.example.Eindproject.dto.CarActionDto;
+import com.example.Eindproject.dto.CustomRepairOperationDto;
+import com.example.Eindproject.dto.RepairDto;
+import com.example.Eindproject.dto.RepairOperationDto;
 import com.example.Eindproject.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +35,7 @@ public class RepairController {
         this.repairOperationService = repairOperationService;
     }
 
-    @GetMapping("/repair/add-repair/{id}")
+    @GetMapping("/mechanic/repair/add-repair/{id}")
     public String addInspection(Model model, @PathVariable("id") Long carId) throws ParseException {
         model.addAttribute("repair", new RepairDto());
         model.addAttribute("car",carService.getCar(carId));
@@ -41,7 +44,7 @@ public class RepairController {
         return "repair/add-repair";
     }
 
-    @PostMapping("/repair/add-repair/{id}")
+    @PostMapping("/mechanic/repair/add-repair/{id}")
     public String addRepair(@Valid @ModelAttribute("repair") RepairDto repairDto, BindingResult bindingResult, Model model, @PathVariable("id") Long carId) throws ParseException {
         model.addAttribute("car",carService.getCar(carId));
         model.addAttribute("inspection", inspectionService.getAllInspectionsByCarId(carId));
@@ -52,17 +55,17 @@ public class RepairController {
         repairDto.setStatus("Ingepland");
         service.createRepair(repairDto);
 
-        return "redirect:/cars";
+        return "redirect:/mechanic/repairs";
     }
 
-    @GetMapping("/repairs")
+    @GetMapping("/mechanic/repairs")
     public String showAllRepairs(Model model) throws ParseException {
         model.addAttribute("repairs", service.getAllRepair());
 
         return "repair/repairs";
     }
 
-    @GetMapping("/repair/edit-repair/{id}")
+    @GetMapping("/mechanic/repair/edit-repair/{id}")
     public String editRepair(Model model, @PathVariable("id") Long repairID) throws ParseException {
         model.addAttribute("repair", service.getRepair(repairID));
         model.addAttribute("repairOperation", new RepairOperationDto());
@@ -74,7 +77,7 @@ public class RepairController {
         return "repair/edit-repair";
     }
 
-    @PostMapping("/repair/add-repair-operation/{id}")
+    @PostMapping("/mechanic/repair/add-repair-operation/{id}")
     public String addRepairOperation(@Valid @ModelAttribute("repairOperation") RepairOperationDto repairOperationDto, BindingResult bindingResult, Model model, @PathVariable("id") Long repairId) throws ParseException {
         model.addAttribute("repair", service.getRepair(repairId));
         model.addAttribute("allActions", carActionService.getAllCarActions());
@@ -86,10 +89,10 @@ public class RepairController {
 
         repairOperationService.createRepairOperation(repairOperationDto);
 
-        return "redirect:/repair/edit-repair/" + repairId;
+        return "redirect:/mechanic/repair/edit-repair/" + repairId;
     }
 
-    @PostMapping("/repair/add-custom-repair-operation/{id}")
+    @PostMapping("/mechanic/repair/add-custom-repair-operation/{id}")
     public String addCustomRepairOperation(@Valid @ModelAttribute("customRepairOperation") CustomRepairOperationDto cro, BindingResult bindingResult, Model model, @PathVariable("id") Long repairId) throws ParseException {
         model.addAttribute("repair", service.getRepair(repairId));
         model.addAttribute("allActions", carActionService.getAllCarActions());
@@ -102,13 +105,19 @@ public class RepairController {
         RepairOperationDto repairOperationDto = new RepairOperationDto(repairId, newActionId, cro.getCarPart());
         repairOperationService.createRepairOperation(repairOperationDto);
 
-        return "redirect:/repair/edit-repair/" + repairId;
+        return "redirect:/mechanic/repair/edit-repair/" + repairId;
     }
 
-    @PostMapping("/repair/edit-repair-status/{id}")
+    @PostMapping("/mechanic/repair/edit-repair-status/{id}")
     public String editRepairStatus(@ModelAttribute("repair") RepairDto repairDto, @PathVariable("id") Long repairId) {
         service.changeRepairStatus(repairId, repairDto.getStatus());
-        return "redirect:/repair/edit-repair/" + repairId;
+        return "redirect:/mechanic/repair/edit-repair/" + repairId;
+    }
+
+    @GetMapping("/repair/finished/{id}")
+    public String editRepairFinished(@PathVariable("id") Long repairId) {
+        service.setToFinished(repairId);
+        return "redirect:/administration/call-list/";
     }
 
 }

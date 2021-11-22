@@ -7,6 +7,5 @@ import java.util.ArrayList;
 
 public interface CarPartService {
     public Long createCarPart(CarPartDto carPartDto);
-    public CarPartDto getCarPart(Long id);
     public ArrayList<CarPartDto> getAllCarParts();
 }

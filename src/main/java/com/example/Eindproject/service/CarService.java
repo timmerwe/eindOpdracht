@@ -9,4 +9,5 @@ public interface CarService {
     public Long createCar(CarDto carDto);
     public CarDto getCar(Long id);
     public ArrayList<CarDto> getAllCars();
+    public byte[] getPdf(Long id);
 }

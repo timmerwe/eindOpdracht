@@ -1,8 +1,6 @@
 package com.example.Eindproject.mapping;
 
-import com.example.Eindproject.dto.CustomerDto;
 import com.example.Eindproject.dto.FindingDto;
-import com.example.Eindproject.entity.Customer;
 import com.example.Eindproject.entity.Finding;
 import com.example.Eindproject.entity.Inspection;
 

@@ -1,6 +1,5 @@
 package com.example.Eindproject.mapping;
 
-import com.example.Eindproject.dto.CarDto;
 import com.example.Eindproject.dto.InspectionDto;
 import com.example.Eindproject.entity.Car;
 import com.example.Eindproject.entity.Inspection;

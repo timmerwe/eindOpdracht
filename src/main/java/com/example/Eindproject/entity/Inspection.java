@@ -1,12 +1,10 @@
 package com.example.Eindproject.entity;
 
 import lombok.*;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -40,8 +38,8 @@ public class Inspection {
     @OneToMany(mappedBy = "inspection")
     private List<Finding> findings;
 
-    @OneToOne(mappedBy = "inspection")
-    private Repair repair;
+    @OneToMany(mappedBy = "inspection")
+    private List<Repair> repair;
 
     public Date getPlannedDate() throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -49,4 +47,6 @@ public class Inspection {
         sdf.applyPattern("dd-MM-yyyy");
         return sdf.parse(sdf.format(d));
     }
+
+    boolean finished = false;
 }

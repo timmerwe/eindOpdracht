@@ -1,22 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
     <title>Header</title>
 </head>
 <body>
 <div class="topnav" id="myTopnav" th:fragment="header">
-    <a href="/add-customer">add customer</a>
-    <a href="/add-car">add car</a>
-    <a href="/customers">show customers</a>
-    <a href="/cars">all cars</a>
-    <a href="/inspections">all inspections</a>
-    <a href="/repairs">all repairs</a>
-    <a href="/add-car-part">Add part</a>
-    <a href="/add-car-action">Add action</a>
-    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-        <i class="fa fa-bars"></i>
-    </a>
+    <div  sec:authorize="hasRole('ADMIN') || hasRole('ADMINISTRATION')">
+        <a href="/administration/add-customer">Voeg klant toe</a>
+        <a href="/administration/add-car">Voeg auto toe</a>
+        <a href="/administration/customers">Klanten</a>
+        <a href="/administration/call-list">Te bellen klanten</a>
+    </div>
+    <div sec:authorize="hasRole('ADMIN') || hasRole('MECHANIC') || hasRole('ADMINISTRATION')">
+        <a href="/cars">Auto's</a>
+        <a href="/inspections">Inspecties</a>
+    </div>
+    <div sec:authorize="hasRole('ADMIN') || hasRole('MECHANIC')">
+     <a href="/mechanic/repairs">Reparaties</a>
+    </div>
+    <div  sec:authorize="hasRole('ADMIN') || hasRole('CASHIER')">
+        <a href="/cashier/payment">Betaling</a>
+    </div>
+    <div sec:authorize="hasRole('ADMIN') || hasRole('BACKOFFICE')">
+        <a href="/backoffice/add-car-part">Voeg onderdeel toe</a>
+        <a href="/backoffice/add-car-action">Voeg handeling toe</a>
+    </div>
+    <a href="/logout">Log uit</a>
 </div>
 </body>
 </html>

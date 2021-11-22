@@ -12,4 +12,7 @@ public interface InspectionService {
     public ArrayList<InspectionDto> getAllInspectionsByCarId(Long id) throws ParseException;
     public void changeInspectionStatus(Long id, String status);
     public void changeInspectionWantsRepair(Long id, int wantsRepair);
+    public Object[][] getAllInspectionsByWantsRepair() throws ParseException;
+    public void setToFinished(Long id);
+
 }

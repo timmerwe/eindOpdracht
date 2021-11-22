@@ -1,13 +1,10 @@
 package com.example.Eindproject.service;
 
 import com.example.Eindproject.dto.CustomerDto;
-import com.example.Eindproject.dto.PartDto;
 import com.example.Eindproject.entity.Customer;
-import com.example.Eindproject.entity.Part;
 import com.example.Eindproject.mapping.CustomerMapper;
 import com.example.Eindproject.repos.CustomerRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,13 +26,6 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDto getCustomer(long id) {
-        Customer c = repos.getById(id);
-        return CustomerMapper.fromEntityToDto(c);
-
-    }
-
-    @Override
     public ArrayList<CustomerDto> getAll() {
         ArrayList<CustomerDto> allCustomerDto = new ArrayList<>();
         List<Customer> allCustomers = repos.findAll();
@@ -46,8 +36,4 @@ public class CustomerServiceImpl implements CustomerService {
         return allCustomerDto;
     }
 
-    @Override
-    public void editCustomer(long id, CustomerDto c) {
-//        repos.updateCustomer(id, c.getFirstName(), c.getLastName(), c.getEmail(), c.getPostalCode(), c.getAddress(), c.getCity());
-    }
 }

@@ -12,7 +12,7 @@
 <div th:replace="fragments/header :: header">
 </div>
 <h1>Voeg auto toe</h1>
-<form th:object="${car}" th:action="@{/add-car}" method="POST" enctype="multipart/form-data">
+<form th:object="${car}" th:action="@{/administration/add-car}" method="POST" enctype="multipart/form-data">
     <div class="form-group">
         <p th:if="${#fields.hasErrors('licencePlate')}" th:text="${#strings.listJoin(#fields.errors('licencePlate'), ', ')}"></p>
         <label for="f1">Kenteken plaat:</label><br>

@@ -2,6 +2,8 @@ package com.example.Eindproject.controller;
 
 import com.example.Eindproject.dto.CustomerDto;
 import com.example.Eindproject.service.CustomerService;
+import com.example.Eindproject.service.InspectionService;
+import com.example.Eindproject.service.RepairService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,23 +13,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.text.ParseException;
 
 @Controller
 public class AccountController {
     private final CustomerService service;
+    private final InspectionService inspectionService;
+    private final RepairService repairService;
 
-    public AccountController(CustomerService service){
+    public AccountController(CustomerService service, InspectionService inspectionService, RepairService repairService){
         this.service = service;
+        this.inspectionService = inspectionService;
+        this.repairService = repairService;
     }
 
-    @GetMapping("/add-customer")
+    @GetMapping("/administration/add-customer")
     public String add(Model model){
         model.addAttribute("customer", new CustomerDto());
 
         return "customer/add-customer";
     }
 
-    @PostMapping("/add-customer")
+    @PostMapping("/administration/add-customer")
     public String add(@Valid @ModelAttribute("customer") CustomerDto customerDto, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()) {
@@ -35,31 +42,35 @@ public class AccountController {
         }
 
         service.createCustomer(customerDto);
-        return "redirect:/customers";
+        return "redirect:/administration/customers";
     }
 
-    @GetMapping("/customers")
+    @GetMapping("/administration/customers")
     public String showAllCustomers(Model model){
         model.addAttribute("customers", service.getAll());
 
         return "customer/customer";
     }
 
-    @GetMapping("/customer/edit/{id}")
-    public String editCustomer(Model model, @PathVariable("id") Long customerId){
-        model.addAttribute("customer", service.getCustomer(customerId));
+    @GetMapping("/administration/call-list")
+    public String showCallList(Model model) throws ParseException {
+        model.addAttribute("inspections", inspectionService.getAllInspectionsByWantsRepair());
+        model.addAttribute("repairs", repairService.getAllRepairsByStatus("Voltooid", false));
 
-        return "customer/edit-customer";
+        return "customer/call-list";
     }
 
-    @PostMapping("/customer/edit/{id}")
-    public String editCustomer(@Valid @ModelAttribute("customer") CustomerDto customerDto, BindingResult bindingResult, @PathVariable("id") Long customerId){
+    @GetMapping("/cashier/payment")
+    public String showPaymentList(Model model) throws ParseException {
+        model.addAttribute("repairs", repairService.getAllRepairsByStatus("Voltooid", true));
 
-        if(bindingResult.hasErrors()) {
-            return "customer/edit-customer";
-        }
+        return "cashier/pickup";
+    }
 
-        service.editCustomer(customerId, customerDto);
-        return "redirect:/customers";
+    @GetMapping("/cashier/payment/changeStatus/{id}")
+    public String changePaymentStatus(Model model, @PathVariable("id") Long repairId) throws ParseException {
+        repairService.changeRepairStatus(repairId, "Betaald");
+
+        return "redirect:/cashier/payment";
     }
 }
