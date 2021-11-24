@@ -7,6 +7,9 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+// Definitie van de reparatie entity met hierbij de getters, setters en constuctors gegenereerd door lombok
+// De reparatie is gekoppeld aan één auto, kan 0 of meerdere reparatie activiteiten bevatten en kan 0 of 1 inspectie bevatten
+
 @Getter
 @Setter
 @RequiredArgsConstructor

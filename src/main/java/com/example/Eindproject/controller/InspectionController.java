@@ -29,6 +29,7 @@ public class InspectionController {
         this.findingService = findingService;
     }
 
+//    Geeft pagina voor toevoegen van inspectie aan een auto weer
     @GetMapping("/administration/car/add-inspection/{id}")
     public String addInspection(Model model, @PathVariable("id") Long carId){
         model.addAttribute("inspection", new InspectionDto());
@@ -37,6 +38,7 @@ public class InspectionController {
         return "inspection/add-inspection";
     }
 
+//    Vangt het formulier van toevoegen inspectie af en voegt deze toe aan de database
     @PostMapping("/administration/car/add-inspection/{id}")
     public String addInspection(@Valid @ModelAttribute("inspection") InspectionDto inspectionDto, BindingResult bindingResult, Model model, @PathVariable("id") Long carId) throws ParseException {
         model.addAttribute("car",carService.getCar(carId));
@@ -50,6 +52,7 @@ public class InspectionController {
         return "redirect:/inspections";
     }
 
+//    Geeft pagina weer waarop alle inspecties staan met status ingepland of in uitvoering
     @GetMapping("/inspections")
     public String showAllInspections(Model model) throws ParseException {
         model.addAttribute("inspections", service.getAllInspections());
@@ -57,6 +60,7 @@ public class InspectionController {
         return "inspection/inspections";
     }
 
+//    Geeft de pagina weer waarop je een inspectie kan bewerken
     @GetMapping("/mechanic/inspection/edit-inspection/{id}")
     public String editInspection(Model model, @PathVariable("id") Long inspectionId) throws ParseException {
         model.addAttribute("inspection", service.getInspection(inspectionId));
@@ -66,6 +70,7 @@ public class InspectionController {
         return "inspection/edit-inspection";
     }
 
+//    Vangt het voeg bevindingen toe formulier af en verwerkt deze naar de database
     @PostMapping("/mechanic/inspection/edit-inspection/{id}")
     public String editInspection(@Valid @ModelAttribute("finding") FindingDto findingDto, BindingResult bindingResult, Model model, @PathVariable("id") Long inspectionId) throws ParseException {
         model.addAttribute("inspection",service.getInspection(inspectionId));
@@ -78,18 +83,21 @@ public class InspectionController {
         return "redirect:/mechanic/inspection/edit-inspection/" + inspectionId;
     }
 
+//    Vangt het verrander status formulier af en wijzigd deze in de database
     @PostMapping("/mechanic/inspection/edit-inspection-status/{id}")
     public String editInspectionStatus(@Valid @ModelAttribute("inspection") InspectionDto inspectionDto, BindingResult bindingResult, Model model, @PathVariable("id") Long inspectionId) throws ParseException {
         service.changeInspectionStatus(inspectionId, inspectionDto.getStatus());
         return "redirect:/mechanic/inspection/edit-inspection/" + inspectionId;
     }
 
+//    Vangt het wil wil reparatie formulier af en wijzigd deze in de database
     @PostMapping("/mechanic/inspection/edit-inspection-repair/{id}")
     public String editInspectionWantsRepair(@Valid @ModelAttribute("inspection") InspectionDto inspectionDto, BindingResult bindingResult, Model model, @PathVariable("id") Long inspectionId) throws ParseException {
         service.changeInspectionWantsRepair(inspectionId, inspectionDto.getWantsRepair());
         return "redirect:/mechanic/inspection/edit-inspection/" + inspectionId;
     }
 
+//    Zet de inspectie op afgerond zodat deze uit de voorkant van het systeem verdwijnd
     @GetMapping("/inspection/finished/{id}")
     public String editInspectionFinished(@PathVariable("id") Long inspectionId) {
         service.setToFinished(inspectionId);

@@ -28,6 +28,7 @@ public class CarController {
         this.inspectionService = inspectionService;
     }
 
+//    Geeft de pagina voor het toevoegen van een auto weer
     @GetMapping("/administration/add-car")
     public String addCar(Model model){
         model.addAttribute("car", new CarDto());
@@ -36,6 +37,7 @@ public class CarController {
         return "car/add-car";
     }
 
+//    Vangt het formulier van een auto toevoegen af en zet deze auto in de database
     @PostMapping("/administration/add-car")
     public String addCar(@Valid @ModelAttribute("car") CarDto carDto, @RequestParam("carPdf") MultipartFile file, BindingResult bindingResult, Model model) throws IOException {
         model.addAttribute("customers", customerService.getAll());
@@ -48,12 +50,14 @@ public class CarController {
         return "redirect:/cars";
     }
 
+//    Haalt het pdf document van de auto op en geeft deze weer
     @Transactional
     @GetMapping(value = "/download/pdf/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
     public @ResponseBody byte[] showCarDocuments(@PathVariable Long id){
         return service.getPdf(id);
     }
 
+//    Geeft de pagina weer waarop alle toegevoegde auto's staan
     @GetMapping("/cars")
     public String showAllCustomers(Model model){
         model.addAttribute("cars", service.getAllCars());

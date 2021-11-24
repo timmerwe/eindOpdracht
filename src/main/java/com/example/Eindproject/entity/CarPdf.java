@@ -7,6 +7,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+// Definitie van de auto pdf entity met hierbij de getters, setters en constuctors gegenereerd door lombok
+// De auto pdf is gekoppeld aan één klant
+
 @Entity
 @Getter
 @Setter

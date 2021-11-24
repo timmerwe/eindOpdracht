@@ -20,6 +20,7 @@ public class CarPartController {
         this.service = service;
     }
 
+//    Geeft pagina voor toevoegen van reparatie onderdelen weer
     @GetMapping("/backoffice/add-car-part")
     public String addCarPart(Model model){
         model.addAttribute("carPart", new CarPartDto());
@@ -27,6 +28,7 @@ public class CarPartController {
         return "part/add-part";
     }
 
+//    Vangt het formulier af en voeg reparatie onderdeel toe aan de database
     @PostMapping("/backoffice/add-car-part")
     public String addCarPart(@Valid @ModelAttribute("carPart") CarPartDto carPartDto, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()) {

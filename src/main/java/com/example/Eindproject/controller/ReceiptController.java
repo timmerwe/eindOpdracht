@@ -29,6 +29,7 @@ public class ReceiptController {
         this.repairService = repairService;
     }
 
+//    Deze functie roept de receiptPdfGenerator aan die met de reparatie data een bon genereerd en deze terug geeft in pdf formaat
     @GetMapping("/repair/generateReceipt/{id}")
     public void generateRepairReceipt(HttpServletResponse response, @PathVariable Long id) throws DocumentException, IOException, ParseException {
         response.setContentType("application/pdf");
@@ -48,6 +49,7 @@ public class ReceiptController {
 
     }
 
+//    Deze functie roept de recieptPdfGenerator aan die met de inspectie gegevens een bon genereerd en deze teruggeeft als pdf
     @GetMapping("/inspection/generateReceipt/{id}")
     public void generateInspectionReceipt(HttpServletResponse response, @PathVariable Long id) throws DocumentException, IOException, ParseException {
         response.setContentType("application/pdf");

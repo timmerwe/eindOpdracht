@@ -5,6 +5,9 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
+// Definitie van de auto onderdelen entity met hierbij de getters, setters en constuctors gegenereerd door lombok
+// Een onderdeel kan gekoppeld worden aan 0 of meerdere reparatie activiteiten
+
 @Getter
 @Setter
 @NoArgsConstructor

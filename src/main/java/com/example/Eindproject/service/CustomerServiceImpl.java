@@ -14,10 +14,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository repos;
 
+// initializeren van repositoryies
     public CustomerServiceImpl(CustomerRepository repos){
         this.repos = repos;
     }
 
+//    Maakt een nieuwe klant aan en voegt deze toe aan de database
     @Override
     public long createCustomer(CustomerDto cust) {
         Customer c = CustomerMapper.fromDtoToEntity(cust);
@@ -25,6 +27,7 @@ public class CustomerServiceImpl implements CustomerService {
         return c.getId();
     }
 
+//    Haalt een lijst op van alle gebruikers
     @Override
     public ArrayList<CustomerDto> getAll() {
         ArrayList<CustomerDto> allCustomerDto = new ArrayList<>();

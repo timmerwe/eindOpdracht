@@ -20,6 +20,7 @@ public class CarActionController {
         this.service = service;
     }
 
+//    Geeft pagina voor toevoegen reparatie handeling weer
     @GetMapping("/backoffice/add-car-action")
     public String addCarAction(Model model){
         model.addAttribute("carAction", new CarActionDto());
@@ -27,6 +28,7 @@ public class CarActionController {
         return "action/add-action";
     }
 
+//    Vangt het formulier af en voegt de reparatie handeling toe aan de database
     @PostMapping("/backoffice/add-car-action")
     public String addCarAction(@Valid @ModelAttribute("carAction") CarActionDto carActionDto, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()) {

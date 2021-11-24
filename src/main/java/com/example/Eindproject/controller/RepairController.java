@@ -35,6 +35,7 @@ public class RepairController {
         this.repairOperationService = repairOperationService;
     }
 
+//    Geeft pagina weer voor het toevoegen van een nieuwe reparatie
     @GetMapping("/mechanic/repair/add-repair/{id}")
     public String addInspection(Model model, @PathVariable("id") Long carId) throws ParseException {
         model.addAttribute("repair", new RepairDto());
@@ -44,6 +45,7 @@ public class RepairController {
         return "repair/add-repair";
     }
 
+//    Vangt het formulier voor toevoegen van een nieuwe reparatie af en voegt deze toe aan de database
     @PostMapping("/mechanic/repair/add-repair/{id}")
     public String addRepair(@Valid @ModelAttribute("repair") RepairDto repairDto, BindingResult bindingResult, Model model, @PathVariable("id") Long carId) throws ParseException {
         model.addAttribute("car",carService.getCar(carId));
@@ -58,6 +60,7 @@ public class RepairController {
         return "redirect:/mechanic/repairs";
     }
 
+//    Geeft een overzicht van alle reparaties die nog niet voltooid zijn
     @GetMapping("/mechanic/repairs")
     public String showAllRepairs(Model model) throws ParseException {
         model.addAttribute("repairs", service.getAllRepair());
@@ -65,6 +68,7 @@ public class RepairController {
         return "repair/repairs";
     }
 
+//    Geeft de pagina weer waarop je een reparatie kan bewerken
     @GetMapping("/mechanic/repair/edit-repair/{id}")
     public String editRepair(Model model, @PathVariable("id") Long repairID) throws ParseException {
         model.addAttribute("repair", service.getRepair(repairID));
@@ -77,6 +81,7 @@ public class RepairController {
         return "repair/edit-repair";
     }
 
+//    Vangt het fomulier af om een reparatie handeling en onderdeel toe te voegen aan de reparatie en slaat deze op in de database
     @PostMapping("/mechanic/repair/add-repair-operation/{id}")
     public String addRepairOperation(@Valid @ModelAttribute("repairOperation") RepairOperationDto repairOperationDto, BindingResult bindingResult, Model model, @PathVariable("id") Long repairId) throws ParseException {
         model.addAttribute("repair", service.getRepair(repairId));
@@ -92,6 +97,7 @@ public class RepairController {
         return "redirect:/mechanic/repair/edit-repair/" + repairId;
     }
 
+//    Vangt het formulier op om een overige handeling toe te voegen met voorgedefineerd onderdeel en voegt deze toe aan de reparatie
     @PostMapping("/mechanic/repair/add-custom-repair-operation/{id}")
     public String addCustomRepairOperation(@Valid @ModelAttribute("customRepairOperation") CustomRepairOperationDto cro, BindingResult bindingResult, Model model, @PathVariable("id") Long repairId) throws ParseException {
         model.addAttribute("repair", service.getRepair(repairId));
@@ -108,12 +114,14 @@ public class RepairController {
         return "redirect:/mechanic/repair/edit-repair/" + repairId;
     }
 
+//    Vangt formulier af om de status van de reparatie te wijzigen
     @PostMapping("/mechanic/repair/edit-repair-status/{id}")
     public String editRepairStatus(@ModelAttribute("repair") RepairDto repairDto, @PathVariable("id") Long repairId) {
         service.changeRepairStatus(repairId, repairDto.getStatus());
         return "redirect:/mechanic/repair/edit-repair/" + repairId;
     }
 
+//    Zet de reparatie op finished zodat deze verdwijnt uit het systeem
     @GetMapping("/repair/finished/{id}")
     public String editRepairFinished(@PathVariable("id") Long repairId) {
         service.setToFinished(repairId);

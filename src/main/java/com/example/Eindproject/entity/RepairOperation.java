@@ -5,6 +5,9 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Date;
 
+// Definitie van de reparatie activiteit entity met hierbij de getters, setters en constuctors gegenereerd door lombok
+// De reparatie activiteit is gekoppeld aan één reparatie en bevat 1 reparatie onderdeel en 1 reparatie handeling
+
 @Getter
 @Setter
 @RequiredArgsConstructor

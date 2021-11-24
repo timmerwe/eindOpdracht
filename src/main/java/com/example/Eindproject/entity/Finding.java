@@ -4,6 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 
+// Definitie van de bevinding entity met hierbij de getters, setters en constuctors gegenereerd door lombok
+// De bevinding is gekoppeld aan één inspectie
+
 @Getter
 @Setter
 @NoArgsConstructor

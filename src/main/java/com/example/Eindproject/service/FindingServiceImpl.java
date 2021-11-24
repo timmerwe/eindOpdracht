@@ -17,11 +17,13 @@ public class FindingServiceImpl implements FindingService{
     private final FindingRepository repos;
     private final InspectionRepository inspectionRepository;
 
+    // initializeren van repositoryies
     public FindingServiceImpl(FindingRepository repos, InspectionRepository inspectionRepository){
         this.repos = repos;
         this.inspectionRepository = inspectionRepository;
     }
 
+//    Maakt een bevinding aan en koppeld deze aan een inspectie, vervolgens word deze opgeslagen in de database
     @Override
     public long createFinding(FindingDto dto) {
         Inspection i = inspectionRepository.getById(dto.getInspection());
@@ -30,6 +32,7 @@ public class FindingServiceImpl implements FindingService{
         return f.getId();
     }
 
+//    Haalt een lijst op van alle bevindingen op basis van het inspectie id
     @Override
     public ArrayList<FindingDto> getAllFindingsById(Long id) {
         ArrayList<FindingDto> allFindingDto = new ArrayList<>();

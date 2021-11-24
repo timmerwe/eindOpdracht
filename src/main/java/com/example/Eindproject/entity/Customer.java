@@ -7,6 +7,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+// Definitie van de klant entity met hierbij de getters, setters en constuctors gegenereerd door lombok
+// De klant kan gekoppeld worden aan 0 of meerdere auto's
+
 @Getter
 @Setter
 @Entity

@@ -25,12 +25,14 @@ public class InspectionServiceImpl implements InspectionService {
     private final CustomerRepository customerRepository;
 
 
+    // initializeren van repositoryies
     public InspectionServiceImpl(InspectionRepository repos, CarRepository carRepository, CustomerRepository customerRepository){
         this.repos = repos;
         this.carRepository = carRepository;
         this.customerRepository = customerRepository;
     }
 
+//    Maakt een nieuwe inspectie aan en koppeld deze aan een auto, vevolgens word deze opgeslagen in de database.
     @Override
     public Long createInspection(InspectionDto dto) throws ParseException {
         Car c = carRepository.getById(dto.getCarId());
@@ -42,12 +44,15 @@ public class InspectionServiceImpl implements InspectionService {
 
     }
 
+//    Haal één isnspectie op op basis van het inspectie id
     @Override
     public InspectionDto getInspection(Long id) throws ParseException {
         Inspection i = repos.getById(id);
         return InspectionMapper.fromEntityToDto(i);
     }
 
+
+//    Haal een lijst op met alle inspecties waarbij nog niet aangegeven is of er een reparatie moet plaatsvinden
     @Override
     public ArrayList<InspectionDto> getAllInspections() throws ParseException {
         ArrayList<InspectionDto> allInspectionsDto = new ArrayList<>();
@@ -59,6 +64,7 @@ public class InspectionServiceImpl implements InspectionService {
         return allInspectionsDto;
     }
 
+//    Haal een lijst op met alle inspecties per auto
     @Override
     public ArrayList<InspectionDto> getAllInspectionsByCarId(Long id) throws ParseException {
         ArrayList<InspectionDto> allInspectionsDto = new ArrayList<>();
@@ -70,6 +76,7 @@ public class InspectionServiceImpl implements InspectionService {
         return allInspectionsDto;
     }
 
+//    Verranderd de status van een inspectie
     @Override
     public void changeInspectionStatus(Long id, String status) {
         Optional<Inspection> iOptional = repos.findById(id);
@@ -80,6 +87,7 @@ public class InspectionServiceImpl implements InspectionService {
         }
     }
 
+//    Zet finished op true zodat de inspectie uit de frondend van het systeem word gehaald
     @Override
     public void setToFinished(Long id) {
         Optional<Inspection> iOptional = repos.findById(id);
@@ -90,6 +98,7 @@ public class InspectionServiceImpl implements InspectionService {
         }
     }
 
+//    Stelt in of de auto gerepareerd mag worden of niet
     @Override
     public void changeInspectionWantsRepair(Long id, int wantsRepair) {
         Optional<Inspection> iOptional = repos.findById(id);
@@ -100,6 +109,7 @@ public class InspectionServiceImpl implements InspectionService {
         }
     }
 
+//    Haalt een lijst op met alle inspecties waarbij de auto gerepareerd mag worden
     @Override
     public Object[][] getAllInspectionsByWantsRepair() throws ParseException {
         ArrayList<InspectionDto> allInspectionsDto = new ArrayList<>();

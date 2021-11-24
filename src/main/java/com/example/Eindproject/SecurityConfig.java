@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+//    In deze configuratie stellen we in dat we van memorie autenticatie gebruik maken en voegen een aantal accounts toe met verschillende gebruikersrollen.
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
@@ -25,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("backoffice").password("{noop}backoffice").roles("BACKOFFICE");
     }
 
+//    In deze configuratie stellen we in dat je moet inloggen op basis van formlogin en geven we aan naar welke links je mag gaan met welke gebruikersrollen (authorizatie)
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http

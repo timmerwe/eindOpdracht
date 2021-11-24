@@ -21,20 +21,19 @@ public class CarServiceImpl implements CarService{
     private final CustomerRepository customerRepository;
     private final CarPdfRepository carPdfRepository;
 
+    // initializeren van repositoryies
     public CarServiceImpl(CarRepository repos, CustomerRepository customerRepository, CarPdfRepository carPdfRepository){
-
         this.repos = repos;
         this.customerRepository = customerRepository;
         this.carPdfRepository = carPdfRepository;
     }
 
+//    Maakt een nieuwe auto aan gekopeld aan een bestaande gebruiker en slaat deze op in de database. Indien er ook een pdf meegegeven is word deze ook toegevoegd.
     @Override
     public Long createCar(CarDto carDto) {
         Car c = CarMapper.fromDtoToEntity(carDto);
-        if(carDto.getCustomerId() != null){
-            Customer customer = customerRepository.getById(carDto.getCustomerId());
-            c.setCustomer(customer);
-        }
+        Customer customer = customerRepository.getById(carDto.getCustomerId());
+        c.setCustomer(customer);
 
         if(carDto.getPdfFile() != null && carDto.getPdfFile().length > 0){
             CarPdf pdf = new CarPdf(carDto.getPdfFile());
@@ -47,6 +46,7 @@ public class CarServiceImpl implements CarService{
 
     }
 
+//    Haalt een specefieke auto op op basis van het meegegeven auto id
     @Transactional
     @Override
     public CarDto getCar(Long id) {
@@ -54,6 +54,7 @@ public class CarServiceImpl implements CarService{
         return CarMapper.fromEntityToDto(c);
     }
 
+//    Haalt een lijst op met alle auto's
     @Override
     public ArrayList<CarDto> getAllCars() {
         ArrayList<CarDto> allCustomerDto = new ArrayList<>();
@@ -65,6 +66,7 @@ public class CarServiceImpl implements CarService{
         return allCustomerDto;
     }
 
+//    Haalt een auto pdf op op basis van een auto id
     @Override
     public byte[] getPdf(Long id){
         return carPdfRepository.getById(id).getPdfFile();

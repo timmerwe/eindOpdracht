@@ -10,6 +10,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+// Definitie van de inspectie entity met hierbij de getters, setters en constuctors gegenereerd door lombok
+// De inspectie is gekoppeld aan één auto, kan 0 of meerdere bevindingen hebben en kan gekoppeld worden aan 0 of meerdere reparaties
+
 @Entity
 @Getter
 @Setter

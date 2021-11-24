@@ -28,7 +28,7 @@ public class RepairServiceImpl implements RepairService{
     private final InspectionRepository inspectionRepository;
     private final CustomerRepository customerRepository;
 
-
+    // initializeren van repositoryies
     public RepairServiceImpl(RepairRepository repos, CarRepository carRepository, InspectionRepository inspectionRepository, CustomerRepository customerRepository){
         this.repos = repos;
         this.carRepository = carRepository;
@@ -36,6 +36,7 @@ public class RepairServiceImpl implements RepairService{
         this.customerRepository = customerRepository;
     }
 
+//    Maakt een nieuwe reparatie aan en koppeld deze aan een auto, vervolgens word deze opgeslagen in de database.
     @Override
     public void createRepair(RepairDto repairDto) throws ParseException {
         Car c = carRepository.getById(repairDto.getCarId());
@@ -56,6 +57,7 @@ public class RepairServiceImpl implements RepairService{
 
     }
 
+//    Haalt een reparatie op basis van het id
     @Override
     public RepairDto getRepair(Long id) throws ParseException {
         Repair r = repos.getById(id);
@@ -66,6 +68,7 @@ public class RepairServiceImpl implements RepairService{
         return new RepairDto(r.getId(), r.getStatus(), r.getArrangements(), r.getPlannedDate().toString(), inspection, r.getCar().getId(), r.getCar().getLicencePlate());
     }
 
+//    Haalt een lijst op van alle reparaties waarvan de status 'Ingepland' of 'In uitvoering' is.
     @Override
     public ArrayList<RepairDto> getAllRepair() throws ParseException {
         ArrayList<RepairDto> allRepairsDto = new ArrayList<>();
@@ -82,11 +85,7 @@ public class RepairServiceImpl implements RepairService{
         return allRepairsDto;
     }
 
-    @Override
-    public ArrayList<RepairDto> getAllRepairByCarId(Long id) throws ParseException {
-        return null;
-    }
-
+//    Veranderd de status van een reparatie
     @Override
     public void changeRepairStatus(Long id, String status) {
         Optional<Repair> rOptional = repos.findById(id);
@@ -97,6 +96,7 @@ public class RepairServiceImpl implements RepairService{
         }
     }
 
+//    Zet finished op true zodat de reparatie niet meer zichtbaar is in de frontend
     @Override
     public void setToFinished(Long id) {
         Optional<Repair> rOptional = repos.findById(id);
@@ -107,9 +107,9 @@ public class RepairServiceImpl implements RepairService{
         }
     }
 
+//    haalt alle reparaties op op basis van status en de afhaalafspraak. Vervolgens worden bij de reparaties de bijbehorende klanten opgehaald en deze in 1 matrix array opgeslagen.
     @Override
     public Object[][] getAllRepairsByStatus(String status, boolean pickupApointment) throws ParseException {
-        ArrayList<RepairDto> allRepairDto = new ArrayList<>();
         List<Repair> allRepairs = repos.findAllByStatusAndPickupApointment(status, pickupApointment);
         Object[][] repairsObj = new Object[allRepairs.size()][2];
         int index = 0;

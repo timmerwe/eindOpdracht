@@ -13,10 +13,12 @@ public class CarPartServiceImpl implements CarPartService{
 
     private final CarPartRepository repos;
 
+// initializeren van repositoryies
     public CarPartServiceImpl(CarPartRepository repos){
         this.repos = repos;
     }
 
+//    Voegt een nieuw auto onderdeel toe aan de database
     @Override
     public Long createCarPart(CarPartDto carPartDto) {
         CarPart c = new CarPart(carPartDto.getName(), carPartDto.getPrice(), carPartDto.getSerialNumber());
@@ -24,6 +26,7 @@ public class CarPartServiceImpl implements CarPartService{
         return c.getId();
     }
 
+//    Haalt alle auto onderdelen op uit de database
     @Override
     public ArrayList<CarPartDto> getAllCarParts() {
         ArrayList<CarPartDto> allCarPartsDto = new ArrayList<>();

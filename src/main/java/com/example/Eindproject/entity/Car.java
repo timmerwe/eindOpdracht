@@ -5,6 +5,9 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
+// Definitie van de auto entity met hierbij de getters, setters en constuctors gegenereerd door lombok
+// De auto is gekoppeld aan één klant en kan 0 of meerdere reparaties en inspecties bevatten
+
 @Entity
 @Getter
 @Setter

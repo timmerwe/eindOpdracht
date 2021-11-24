@@ -26,12 +26,15 @@ public class RepairOperationServiceImpl implements RepairOperationService{
     private final CarPartRepository carPartRepository;
     private final RepairRepository repairRepository;
 
+    // initializeren van repositoryies
     public RepairOperationServiceImpl(RepairOperationRepository repairOperationRepository, CarActionRepository carActionRepository, CarPartRepository carPartRepository, RepairRepository repairRepository){
         this.repos = repairOperationRepository;
         this.carActionRepository = carActionRepository;
         this.carPartRepository = carPartRepository;
         this.repairRepository = repairRepository;
     }
+
+//    Maakt een reparatie actie aan en voegt hierbij één reparatie onderdeel en één repartie handeling toe, vervolgens word deze gekoppeld aan een reparatie en opgeslagen in de database.
     @Override
     public void createRepairOperation(RepairOperationDto dto) throws ParseException {
         CarAction a = carActionRepository.getById(dto.getCarAction());
@@ -52,6 +55,7 @@ public class RepairOperationServiceImpl implements RepairOperationService{
         repos.save(o);
     }
 
+//    Haalt een lijst op van alle reparatie acties op basis van het reparatie id
     @Override
     public ArrayList<RepairOperationDto> getAllRepairOperationsById(Long id) {
         ArrayList<RepairOperationDto> allRepairOperationsDto = new ArrayList<>();

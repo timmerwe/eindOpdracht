@@ -12,11 +12,12 @@ import java.util.List;
 public class CarActionServiceImpl implements CarActionService{
 
     private final CarActionRepository repos;
-
+// initializeren van repositoryies
     public CarActionServiceImpl(CarActionRepository repos){
         this.repos = repos;
     }
 
+//    Voegt een nieuwe autohandeling toe aan de database met optie voor een overige handeling
     @Override
     public Long createCarAction(CarActionDto carActionDto, boolean customAction) {
         CarAction c = new CarAction(carActionDto.getTitle(), carActionDto.getDescription(), carActionDto.getPrice(), customAction);
@@ -24,6 +25,7 @@ public class CarActionServiceImpl implements CarActionService{
         return c.getId();
     }
 
+//    Haalt alle auto handelingen die niet custom zijn op uit de database
     @Override
     public ArrayList<CarActionDto> getAllCarActions() {
         ArrayList<CarActionDto> allCarActionsDto = new ArrayList<>();
